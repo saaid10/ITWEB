@@ -13,7 +13,7 @@ router.post('/',
             .isLength({ min:1 })
             .withMessage('Plean enter a name'),
         check('email')
-            .isLengt({min:1})
+            .isLength({min:1})
             .withMessage('Plean enter an email'),
     ],
     (req, res) => {
@@ -30,7 +30,5 @@ router.post('/',
         }
     }
 );
-
-
 
 module.exports = router;
