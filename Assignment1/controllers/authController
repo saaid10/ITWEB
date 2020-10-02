@@ -1,0 +1,39 @@
+const {validationResult} = require('express-validator');
+const mongoose = require('mongoose');
+const userColl = mongoose.model('User');
+const User = require('../models/user');
+require('bcrypt');
+
+
+module.exports.getRegistrationPage = function (req, res) {
+    res.render('registration', {title: 'Registration form'});
+}
+
+module.exports.registerUser = async function (req, res) {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+        try {
+            let user = new User();
+            user.username = req.body.username;
+            user.setPassword(req.body.password);
+            await userColl.create(user);
+            res.send('Registration Successful');
+        } catch (e) {
+            res.send("Error");
+        }
+    } else {
+        res.render('registration', {
+            title: 'Registration form',
+            errors: errors.array(),
+            data: req.body,
+        });
+    }
+}
+
+module.exports.getLoginPage = function (req, res) {
+    res.render('login', {title: 'Login Page'});
+}
+
+module.exports.doLogin = function (req, res) {
+    res.redirect('/')
+}

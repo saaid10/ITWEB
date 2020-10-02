@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
 const mongoose = require('mongoose');
+const {ensureLoggedIn} = require("connect-ensure-login");
 const userColl = mongoose.model('User');
 
 /* GET users listing. */
-router.get('/', async function (req, res, next) {
+router.get('/' , ensureLoggedIn('/auth/login'), async function (req, res, next) {
     const users = await userColl.find({});
     console.log(users);
     res.send(users);
