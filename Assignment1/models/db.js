@@ -8,6 +8,8 @@ mongoose.connect(dbURI, {
     useUnifiedTopology: true
 });
 
+mongoose.set('useCreateIndex', true);
+
 mongoose.connection.on('connected', () => {
     console.log(`Mongoose connected to ${dbURI}`);
 });
