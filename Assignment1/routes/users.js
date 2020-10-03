@@ -7,7 +7,7 @@ const userColl = mongoose.model('User');
 /* GET users listing. */
 router.get('/' , ensureLoggedIn('/auth/login'), async function (req, res, next) {
     const users = await userColl.find({});
-    console.log(users);
+    //console.log(users);
     res.send(users);
 });
 
