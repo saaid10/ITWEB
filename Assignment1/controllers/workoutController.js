@@ -20,7 +20,6 @@ module.exports.addWorkout = async function(req, res) {
         
         const workout = new Workout();
         workout.exercise = "MegaSquat";
-
         const workoutProgram = new WorkoutProgram();
         workoutProgram.workouts.push(workout);
         user.addWorkoutProgram(workoutProgram);
