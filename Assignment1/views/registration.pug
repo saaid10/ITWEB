@@ -21,6 +21,14 @@ block content
                 value=data.password
             )
 
+            label(for="confirmPassword") Confirm Password:
+            input(
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value=data.confirmPassword
+            )
+
             input(type="submit" value="Register!")
 
             if errors
