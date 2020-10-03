@@ -34,6 +34,7 @@ module.exports.registerUser = async function (req, res) {
             await userColl.create(user);
             res.redirect('/');
         } catch (e) {
+            console.log(e);
             res.render('registration', {
                 title: 'Registration Page',
                 errors: [{msg: 'A user with that username already exists, please pick a new one'}],
