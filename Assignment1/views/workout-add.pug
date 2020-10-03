@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    -data = data || {}
+
+    h1= title
+    p You can Add a new Workout here
+
+    form(action="/workout/add" method="POST")
+        label(for="username") User:
+        input(
+            type="text"
+            id="username"
+            name="username"
+            value=data.username
+        )
+        br
+        label(for="newname") New Name:
+        input(
+            type="text"
+            id="newname"
+            name="newname"
+            value=data.newname
+        )
+        input(type="submit" value="Submit")
