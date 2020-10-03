@@ -1,40 +1,44 @@
 extends layout
 
+block logout
+
 block content
     -data = data || {}
+        h1(class="textCenter") New user? Register below!
+
     div(class='auth')
-        h1='New user? Register below!'
-        form(action="./registration" method="POST" class='authForm')
-            label(for="username") Username:
-            input(
-                type="text"
-                id="username"
-                name="username"
-                value=data.username
-            )
+        div(class="workoutcard")
+            form(action="./registration" method="POST" class='authForm padding-top-16px')
+                label(for="username") Username:
+                input(
+                    type="text"
+                    id="username"
+                    name="username"
+                    value=data.username
+                )
 
-            label(for="password") Password:
-            input(
-                type="password"
-                id="password"
-                name="password"
-                value=data.password
-            )
+                label(for="password") Password:
+                input(
+                    type="password"
+                    id="password"
+                    name="password"
+                    value=data.password
+                )
 
-            label(for="confirmPassword") Confirm Password:
-            input(
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value=data.confirmPassword
-            )
+                label(for="confirmPassword") Confirm Password:
+                input(
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value=data.confirmPassword
+                )
 
-            input(type="submit" value="Register!")
+                input(type="submit" value="Register!" class="button")
 
-            if errors
-                ul
-                    for error in errors
-                        li(class='error')= error.msg
+                if errors
+                    ul
+                        for error in errors
+                            li(class='error')= error.msg
 
-        h4='Already have a user? '
-            a(href='/auth/login') Login here!
+            h4='Already have a user? '
+                a(href='/auth/login') Login here!

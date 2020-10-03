@@ -2,39 +2,41 @@ extends layout
 
 block content
     -data = data || {}
+
+    h1(class="textCenter")= title
     div(class="workout")
-        h1= title
-        p You can Add a new Workout here
-        form(action="./add" method="POST" class="workoutForm")
-            label(for="exercise") Exercise:
-            input(
-                type="text"
-                id="exercise"
-                name="exercise"
-                value=data.exercise
-            )
-            br
-            label(for="set") Set:
-            input(
-                type="number"
-                id="set"
-                name="set"
-                value=data.set
-            )
-            br
-            label(for="repsOrTime") Reps or Time:
-            input(
-                type="text"
-                id="repsOrTime"
-                name="repsOrTime"
-                value=data.repsOrTime
-            )
-            br
-            label(for="description") Description:
-            input(
-                type="text"
-                id="description"
-                name="description"
-                value=data.description
-            )
-            input(type="submit" value="Submit")
+        div(class="workoutcard")
+            p You can Add a new Workout here
+            form(action="./add" method="POST" class="workoutForm")
+                label(for="exercise") Exercise:
+                input(
+                    type="text"
+                    id="exercise"
+                    name="exercise"
+                    value=data.exercise
+                )
+                br
+                label(for="set") Set:
+                input(
+                    type="number"
+                    id="set"
+                    name="set"
+                    value=data.set
+                )
+                br
+                label(for="repsOrTime") Reps or Time:
+                input(
+                    type="text"
+                    id="repsOrTime"
+                    name="repsOrTime"
+                    value=data.repsOrTime
+                )
+                br
+                label(for="description") Description:
+                input(
+                    type="text"
+                    id="description"
+                    name="description"
+                    value=data.description
+                )
+                input(type="submit" value="Submit" class="button")

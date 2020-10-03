@@ -9,8 +9,7 @@ module.exports.workoutList = async function(req, res) {
         var user = await workoutUserColl.findById(req.session.passport.user);
         
         res.render('workout-list', {
-            title: "Homepage - Workout List", 
-            //workoutPrograms: user.workoutPrograms[0].workouts[0].exercise,
+            title: "Homepage - Workout List",
             workoutPrograms: user.workoutPrograms,
         });
     } catch (e) {

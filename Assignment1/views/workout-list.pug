@@ -1,9 +1,29 @@
 extends layout
 
 block content
-    h4= title
-    p List Welcome to #{title}
+    div(class="textCenter")
+        h1= title
+        h2(class="crazyStyle") Ballz FitnezZ
+
+        button(class="button", onClick=`addWorkoutProgram()`) Add Workout Program
+    
     div(class="grid-container")
-        each workoutProgram in workoutPrograms
-            include workout-program-card.pug
-            
+        if workoutPrograms
+            each workoutProgram in workoutPrograms
+                include workout-program-card.pug
+
+
+
+    script.
+        function addWorkout(id) {
+            window.location.href = '/workout/'+id+ '/add'
+        }
+
+        function goToDetails(id) {
+            window.location.href = '/program/'+id
+        }
+
+        function addWorkoutProgram() {
+            window.location.href = '/program/add'
+        }
+        

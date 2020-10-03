@@ -3,11 +3,24 @@ extends layout
 block content
     -data = data || {}
 
+        h1(class="textCenter") Workout Program Details
         if data
-            p=data.name
-            for workout in data.workouts
-                ul
-                    li=workout.exercise
-                    li=workout.description
-                    li=workout.set
-                    li=workout.repsOrTime
+            div(class="workoutcard")
+                h2= data.name
+                hr
+                each excersise in data.workouts
+                    p 
+                        b Exercise: 
+                        = excersise.exercise
+                    p
+                        b Description: 
+                        = excersise.description
+                    p
+                        b Set: 
+                        = excersise.set
+                    p
+                        b Reps Or Time: 
+                        = excersise.repsOrTime
+
+                    hr
+    

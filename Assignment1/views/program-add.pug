@@ -2,16 +2,18 @@ extends layout
 
 block content
     -data = data || {}
+
+    h1(class="textCenter")= title
     div(class="workout")
-        h1= title
-        p You can Add a new Program here
-        form(action="/program/add" method="POST" class="workoutForm")
-            label(for="programName") Program Name:
-            input(
-                type="text"
-                id="programName"
-                name="programName"
-                value=data.programName
-            )
+        div(class="workoutcard")
+            p You can Add a new Program here
+            form(action="/program/add" method="POST" class="workoutForm")
+                label(for="programName") Program Name:
+                input(
+                    type="text"
+                    id="programName"
+                    name="programName"
+                    value=data.programName
+                )
             
-            input(type="submit" value="Submit")
+                input(type="submit" value="Submit" class="button")

@@ -1,32 +1,36 @@
 extends layout
 
+block logout
+
 block content
     -data = data || {}
+
+    h1(class="textCenter")="Please Login"
     div(class='auth')
-        h1="Please Login"
-        form(action="./login" method="POST" class="authForm")
-            label(for="username") Username:
-            input(
-                type="text"
-                id="username"
-                name="username"
-                value=data.username
-            )
+        div(class="workoutcard")
+            form(action="./login" method="POST" class="authForm padding-top-16px")
+                label(for="username") Username:
+                input(
+                    type="text"
+                    id="username"
+                    name="username"
+                    value=data.username
+                )
 
-            label(for="password") Password:
-            input(
-                type="password"
-                id="password"
-                name="password"
-                value=data.password
-            )
+                label(for="password") Password:
+                input(
+                    type="password"
+                    id="password"
+                    name="password"
+                    value=data.password
+                )
 
-            input(type="submit" value="Login!")
+                input(type="submit" value="Login!" class="button")
 
-            if errors
-                ul
-                    for error in errors
-                        li(class='error')= error.msg
+                if errors
+                    ul
+                        for error in errors
+                            li(class='error')= error.msg
 
-        h4='If you do not have a user, you can '
-            a(href='/auth/registration') register here
+            h4='If you do not have a user, you can '
+                a(href='/auth/registration') register here
