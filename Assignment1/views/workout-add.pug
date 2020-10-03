@@ -5,20 +5,36 @@ block content
     div(class="workout")
         h1= title
         p You can Add a new Workout here
-        form(action="/workout/add" method="POST" class="workoutForm")
-            label(for="username") User:
+        form(action="./add" method="POST" class="workoutForm")
+            label(for="exercise") Exercise:
             input(
                 type="text"
-                id="username"
-                name="username"
-                value=data.username
+                id="exercise"
+                name="exercise"
+                value=data.exercise
             )
             br
-            label(for="newname") New Name:
+            label(for="set") Set:
+            input(
+                type="number"
+                id="set"
+                name="set"
+                value=data.set
+            )
+            br
+            label(for="repsOrTime") Reps or Time:
             input(
                 type="text"
-                id="newname"
-                name="newname"
-                value=data.newname
+                id="repsOrTime"
+                name="repsOrTime"
+                value=data.repsOrTime
+            )
+            br
+            label(for="description") Description:
+            input(
+                type="text"
+                id="description"
+                name="description"
+                value=data.description
             )
             input(type="submit" value="Submit")

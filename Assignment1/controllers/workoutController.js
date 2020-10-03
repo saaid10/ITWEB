@@ -16,21 +16,30 @@ module.exports.addWorkoutForm = function(req, res) {
 /* POST add workout form */
 module.exports.addWorkout = async function(req, res) {
     try{
-        var user = await workoutUserColl.findOne({username: req.body.username});
+        //var user = await workoutUserColl.findOne({username: req.body.username});
+        var user = await workoutUserColl.findById(req.session.passport.user)
         
         const workout = new Workout();
-        workout.exercise = "MegaSquat";
+        workout.exercise = req.body.exercise;
+        workout.description = req.body.description;
+        workout.set = req.body.set;
+        workout.repsOrTime = req.body.repsOrTime;
+
         const workoutProgram = new WorkoutProgram();
-        workoutProgram.workouts.push(workout);
+        workoutProgram.addWorkout(workout);
         user.addWorkoutProgram(workoutProgram);
 
-        await workoutUserColl.updateOne({ username: req.body.username }, user)
-        
-        res.send("User Updated");
+        await workoutUserColl.updateOne({ username: user.username }, user)
+ 
+        res.redirect('/');
     } catch (e) {
         res.send(e);
     }
 };
+
+/* POST add exercise to workout */
+
+
 
 
 
