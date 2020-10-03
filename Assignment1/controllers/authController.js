@@ -13,6 +13,7 @@ const addDemoWorkoutProgramToUser = function (user) {
     workout.set = 3;
     workout.repsOrTime = "20";
     const workoutProgram = new WorkoutProgram();
+    workoutProgram.name = "Demo Workout Program";
     workoutProgram.addWorkout(workout);
     user.addWorkoutProgram(workoutProgram);
 }
