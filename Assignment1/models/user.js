@@ -17,16 +17,6 @@ workoutProgramSchema.method('addWorkout', function (workout) {
     this.workouts.push(workout);
 });
 
-const workoutSchema = new mongoose.Schema({
-    exercise: String,
-    description: String,
-    set: Number,
-    repsOrTime: String
-})
-const workoutProgramSchema = new mongoose.Schema({
-    workouts: [workoutSchema]
-})
-
 workoutProgramSchema.method('addWorkout', function (workout) {
     this.workouts.push(workout);
 });
