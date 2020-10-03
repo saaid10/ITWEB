@@ -1,3 +1,8 @@
+script.
+    function goToDetails(id) {
+        window.location.href = '/workout/'+id+ '/add'
+    }
+
 div(class="workoutcard")
     h2= workoutProgram.name
     hr
@@ -6,5 +11,7 @@ div(class="workoutcard")
             b #{excersise.exercise}: (#{excersise.repsOrTime} / #{excersise.set})
     
     div(class="buttons")
-        button(onClick=) Show Details
+        button(onClick="goToDetails(" + workoutProgram._id + ")") Show Details
+        //- button(onclick='authenticate(\'' + url + '\',\'' + token + '\',\'' + accountId + '\')') Login
         button(onClick) Add workout to program
+
