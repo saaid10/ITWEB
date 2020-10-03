@@ -33,7 +33,7 @@ module.exports.registerUser = async function (req, res) {
             addDemoWorkoutProgramToUser(user);
 
             await userColl.create(user);
-            res.redirect('/');
+            res.redirect('/auth/login');
         } catch (e) {
             console.log(e);
             res.render('registration', {

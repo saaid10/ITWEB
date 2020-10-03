@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const workoutUserColl = mongoose.model('User');
 
-const User = require('../models/user').User;
-const WorkoutProgram = require('../models/user').WorkoutProgram;
 const Workout = require('../models/user').Workout;
 
 /* GET add workout form */
@@ -16,11 +14,7 @@ module.exports.addWorkout = async function(req, res) {
 
         var user = await workoutUserColl.findById(req.session.passport.user)        
         
-        var program = user.workoutPrograms.find((program)=>program._id == req.params.programid)
-
-        console.log(program)
-        
-        
+        var program = user.workoutPrograms.find((program) => program._id.toString() === req.params.programid.toString())
 
         const workout = new Workout();
         workout.exercise = req.body.exercise;
@@ -30,19 +24,13 @@ module.exports.addWorkout = async function(req, res) {
 
         program.addWorkout(workout);
 
-        //const workoutProgram = program;
-        //workoutProgram.addWorkout(workout);
-        //user.addWorkoutProgram(workoutProgram);
-
         await workoutUserColl.updateOne({ username: user.username }, user)
  
-        res.redirect('/');
+        res.redirect('/program/' + program._id);
     } catch (e) {
         res.send(e);
     }
 };
-
-/* POST add exercise to workout */
 
 
 
