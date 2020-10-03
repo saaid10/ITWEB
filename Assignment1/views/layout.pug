@@ -6,8 +6,15 @@ html
     style
       include ../public/stylesheets/style.css
   body
+
     block logout
-      button(class="button logout" onClick=`logout()`) Logout
+      div(class="buttons")
+        button(class="button" onClick=`goBack()`) Go Back
+        button(class="button logout" onClick=`logout()`) Logout
+    
+    block logo
+      a(class="crazyStyle" href="/") Ballz FitnezZ
+
     block content
 
 
@@ -15,3 +22,9 @@ script.
   function logout() {
     window.location.href = '/auth/logout'
   }
+
+  function goBack() {
+    window.history.back();
+  }
+
+  

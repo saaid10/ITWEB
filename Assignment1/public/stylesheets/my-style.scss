@@ -16,11 +16,9 @@
     .buttons {
         box-shadow: unset;
         height: 100%;
-        display: flex;
-        justify-content: space-evenly;
         align-items: flex-end;
         text-align: center;
-
+        justify-content: space-evenly;
         
         button {
             align-self: flex-end;
@@ -33,6 +31,10 @@
     grid-template-columns: auto auto auto;
 }
 
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+}
 
 button, .button {
     border-radius: 10px;
@@ -50,15 +52,16 @@ button, .button {
 
 .crazyStyle {
     text-transform: uppercase;
-    margin-top: -20px;
+    position: absolute;
+    margin-top: -40px;
     font-size: 35px;
+    font-weight: bold;
 	background: linear-gradient(to right, red 25%, yellow 50%, blue 75%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
     text-shadow: 35px 15px 10px #ff0000;
 }
 
-
 .logout {
-    margin-left: calc(100% - 100px);
+    background-color: orangered;
 }
