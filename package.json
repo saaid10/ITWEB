@@ -3,7 +3,7 @@
 "version": "0.0.0",
 "private": true,
 "scripts": {
-    "herokupre": "cd Assignment1 && npm install && npm run build"
+    "herokupre": "cd Assignment1 && npm install && npm run startProd"
   },
 "engines": {
     "node": "^12.18.3",
