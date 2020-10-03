@@ -6,6 +6,7 @@ require('morgan');
 const passport = require('passport');
 require('./models/db');
 require('./config/passport');
+var sassMiddleware = require('node-sass-middleware');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -19,12 +20,20 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(
+    sassMiddleware({
+        src: __dirname + '/public/stylesheets', //where the sass files are 
+        dest: __dirname + '/public/stylesheets', //where css should go
+        prefix: "/stylesheets",
+        debug: true // obvious
+    })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('morgan')('combined'));
-app.use(require('body-parser').urlencoded({extended: true}));
-app.use(require('express-session')({secret: 'keyboard cat', resave: false, saveUninitialized: false}));
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', indexRouter);

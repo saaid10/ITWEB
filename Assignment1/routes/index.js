@@ -1,10 +1,9 @@
 const express = require('express');
+const {ensureLoggedIn} = require("connect-ensure-login");
+const workoutController = require('../controllers/workoutController')
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-
-    res.render('index', {title: 'Express'});
-});
+router.get('/', ensureLoggedIn('/auth/login'), workoutController.workoutList);
 
 module.exports = router;

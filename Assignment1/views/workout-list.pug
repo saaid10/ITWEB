@@ -1,5 +1,9 @@
 extends layout
 
 block content
-    h1= title
+    h4= title
     p List Welcome to #{title}
+    div(class="grid-container")
+        each workoutProgram in workoutPrograms
+            include workout-program-card.pug
+            

@@ -8,6 +8,22 @@ const User = require('../models/user').User;
 const WorkoutProgram = require('../models/user').WorkoutProgram;
 const Workout = require('../models/user').Workout;
 
+// Get list workouts (homepage)
+module.exports.workoutList = async function(req, res) {
+    try{
+        var user = await workoutUserColl.findById(req.session.passport.user);
+        
+        res.render('workout-list', {
+            title: "Homepage - Workout List", 
+            //workoutPrograms: user.workoutPrograms[0].workouts[0].exercise,
+            workoutPrograms: user.workoutPrograms,
+        });
+    } catch (e) {
+        res.send(e);
+    }
+}
+
+
 /* GET add workout form */
 module.exports.addWorkoutForm = function(req, res) {
     res.render('workout-add', { title: 'Add Workout'});

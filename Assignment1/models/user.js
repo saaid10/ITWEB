@@ -10,6 +10,10 @@ const workoutSchema = new mongoose.Schema({
     repsOrTime: String
 })
 const workoutProgramSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
     workouts: [workoutSchema]
 })
 
@@ -52,4 +56,3 @@ const User = mongoose.model("User", userSchema);
 module.exports.User = User;
 module.exports.WorkoutProgram = WorkoutProgram;
 module.exports.Workout = Workout;
-

@@ -1,0 +1,10 @@
+div(class="workoutcard")
+    h2= workoutProgram.name
+    hr
+    each excersise in workoutProgram.workouts
+        p 
+            b #{excersise.exercise}: (#{excersise.repsOrTime} / #{excersise.set})
+    
+    div(class="buttons")
+        button(onClick) Show Details
+        button(onClick) Add workout to program

@@ -1,0 +1,29 @@
+
+.workoutcard {
+    margin: 20px;
+    padding: 5px 20px;
+    border-radius: 10px;
+    background-color: lightslategray;
+    box-shadow: 6px 8px 5px #252525;
+
+    .buttons {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-end;
+        text-align: center;
+        
+        button {
+            align-self: flex-end;
+            border-radius: 10px;
+            padding: 5px 10px;
+            background-color: greenyellow;
+        }
+    }
+
+    
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
