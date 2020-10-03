@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    -data = data || {}
+
+        if data
+            p=data.name
+            for workout in data.workouts
+                ul
+                    li=workout.exercise
+                    li=workout.description
+                    li=workout.set
+                    li=workout.repsOrTime

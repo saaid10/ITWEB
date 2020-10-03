@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const favicon = require('serve-favicon');
 require('morgan');
 const passport = require('passport');
 require('./models/db');
@@ -13,6 +14,8 @@ const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 
 const workoutRouter = require('./routes/workout');
+const programRouter = require('./routes/program')
+
 
 const app = express();
 
@@ -31,6 +34,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(require('morgan')('combined'));
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
@@ -40,8 +44,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use('/workout', workoutRouter);
-
 app.use('/auth', authRouter);
+app.use('/program', programRouter);
 
 
 // catch 404 and forward to error handler

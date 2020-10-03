@@ -13,6 +13,7 @@ const addDemoWorkoutProgramToUser = function (user) {
     workout.set = 3;
     workout.repsOrTime = "20";
     const workoutProgram = new WorkoutProgram();
+    workoutProgram.name = "Demo Workout Program";
     workoutProgram.addWorkout(workout);
     user.addWorkoutProgram(workoutProgram);
 }
@@ -32,8 +33,9 @@ module.exports.registerUser = async function (req, res) {
             addDemoWorkoutProgramToUser(user);
 
             await userColl.create(user);
-            res.redirect('/');
+            res.redirect('/auth/login');
         } catch (e) {
+            console.log(e);
             res.render('registration', {
                 title: 'Registration Page',
                 errors: [{msg: 'A user with that username already exists, please pick a new one'}],

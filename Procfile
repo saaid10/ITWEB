@@ -1,0 +1,1 @@
+web: cd Assignment1 && npm install && npm run startProd
