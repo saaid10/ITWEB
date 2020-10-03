@@ -3,9 +3,9 @@ const router = express.Router();
 const workoutController = require('../controllers/workoutController')
 
 /* GET add workout form */
-router.get('/add', workoutController.addWorkoutForm);
+router.get('/:programid/add', workoutController.addWorkoutForm);
 
-/* GET add workout form */
-router.post('/add', workoutController.addWorkout);
+/* POST add workout form */
+router.post('/:programid/add', workoutController.addWorkout);
 
 module.exports = router;

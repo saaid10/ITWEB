@@ -12,6 +12,8 @@ const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 
 const workoutRouter = require('./routes/workout');
+const programRouter = require('./routes/program')
+
 
 const app = express();
 
@@ -31,8 +33,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use('/workout', workoutRouter);
-
 app.use('/auth', authRouter);
+app.use('/program', programRouter);
 
 
 // catch 404 and forward to error handler
