@@ -1,4 +1,21 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+
+const workoutSchema = new mongoose.Schema({
+    exercise: String,
+    description: String,
+    set: Number,
+    repsOrTime: String
+})
+const workoutProgramSchema = new mongoose.Schema({
+    workouts: [workoutSchema]
+})
+
+workoutProgramSchema.method('addWorkout', function (workout) {
+    this.workouts.push(workout);
+});
 
 const workoutSchema = new mongoose.Schema({
     exercise: String,
@@ -28,8 +45,15 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.method('addWorkoutProgram', function (workoutProgram) {
-    console.log('HELLO FROM ADD WORKOUTPROGRAM')
     this.workoutPrograms.push(workoutProgram);
+});
+
+userSchema.method('setPassword', function (password) {
+    this.password = bcrypt.hashSync(password, saltRounds);
+});
+
+userSchema.method('validatePassword', function (password) {
+    return !!bcrypt.compareSync(password, this.password);
 });
 
 const Workout = mongoose.model('workout', workoutSchema);
@@ -39,29 +63,3 @@ module.exports.User = User;
 module.exports.WorkoutProgram = WorkoutProgram;
 module.exports.Workout = Workout;
 
-/*const mongoose = require('mongoose');
-
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    training: {
-        type: String
-    },
-    workoutProgram: [{
-        workouts: [{
-            exercise: String,
-            description: String,
-            set: Number,
-            repsOrTime: String
-        }]
-    }]
-});
-mongoose.model("User", userSchema);
-*/
