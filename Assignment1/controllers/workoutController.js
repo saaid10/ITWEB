@@ -15,16 +15,6 @@ module.exports.addWorkoutForm = function(req, res) {
 
 /* POST add workout form */
 module.exports.addWorkout = async function(req, res) {
-    /*
-    try {
-        await workoutUserColl.updateOne({ username: req.body.username }, {training: req.body.newname})
-        res.send("User Updated");
-    } catch (e) {
-        res.send(e);
-    }
-    */
-
-    // Add new workout
     try{
         var user = await workoutUserColl.findOne({username: req.body.username});
         
@@ -33,21 +23,10 @@ module.exports.addWorkout = async function(req, res) {
 
         const workoutProgram = new WorkoutProgram();
         workoutProgram.workouts.push(workout);
-
-        console.log(user)
-        console.log(user.workoutPrograms)
-
-        console.log(workoutProgram)
-        
-        user.addWorkoutProgram(workoutProgram); // cannot call
-
-        console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
-        
-        console.log(user)
+        user.addWorkoutProgram(workoutProgram);
 
         await workoutUserColl.updateOne({ username: req.body.username }, user)
         
-        //await workoutUserColl.save(user);
         res.send("User Updated");
     } catch (e) {
         res.send(e);
