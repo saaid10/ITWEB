@@ -4,20 +4,21 @@ const authController = require('../controllers/authController')
 const {check} = require('express-validator');
 const passport = require('passport');
 
+const postHandler = [
+    check('username')
+        .isLength({min: 1})
+        .withMessage('Please enter a username'),
+    check('password')
+        .isLength({min: 1})
+        .withMessage('Please enter a password'),
+];
+
 router.get('/registration', authController.getRegistrationPage);
 
-router.post('/registration',
-    [
-        check('username')
-            .isLength({min: 1})
-            .withMessage('Please enter a username'),
-        check('password')
-            .isLength({min: 1})
-            .withMessage('Please enter a password'),
-    ], authController.registerUser);
+router.post('/registration', postHandler, authController.registerUser);
 
 router.get('/login', authController.getLoginPage);
-router.post('/login', passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/auth/login' }));
+router.post('/login', postHandler, passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/auth/login' }));
 
 router.get('/logout', function (req, res) {
     req.logout();

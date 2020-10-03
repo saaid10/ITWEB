@@ -3,6 +3,20 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
+const workoutSchema = new mongoose.Schema({
+    exercise: String,
+    description: String,
+    set: Number,
+    repsOrTime: String
+})
+const workoutProgramSchema = new mongoose.Schema({
+    workouts: [workoutSchema]
+})
+
+workoutProgramSchema.method('addWorkout', function (workout) {
+    this.workouts.push(workout);
+});
+
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -13,14 +27,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    workoutProgram: [{
-        workouts: [{
-            exercise: String,
-            description: String,
-            set: Number,
-            repsOrTime: String
-        }]
-    }]
+    workoutPrograms: [workoutProgramSchema]
 });
 
 userSchema.method('setPassword', function (password) {
@@ -31,5 +38,13 @@ userSchema.method('validatePassword', function (password) {
     return !!bcrypt.compareSync(password, this.password);
 });
 
+userSchema.method('addWorkoutProgram', function (workoutProgram) {
+    this.workoutPrograms.push(workoutProgram);
+});
+
+const Workout = mongoose.model('workout', workoutSchema);
+const WorkoutProgram = mongoose.model('workoutProgram', workoutProgramSchema);
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+module.exports.User = User;
+module.exports.WorkoutProgram = WorkoutProgram;
+module.exports.Workout = Workout;

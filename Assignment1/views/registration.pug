@@ -2,27 +2,31 @@ extends layout
 
 block content
     -data = data || {}
+    div(class='auth')
+        h1='New user? Register below!'
+        form(action="./registration" method="POST" class='authForm')
+            label(for="username") Username:
+            input(
+                type="text"
+                id="username"
+                name="username"
+                value=data.username
+            )
 
-    if errors
-        ul
-            for error in errors
-                li= error.msg
+            label(for="password") Password:
+            input(
+                type="password"
+                id="password"
+                name="password"
+                value=data.password
+            )
 
-    form(action="./registration" method="POST")
-        label(for="username") Username:
-        input(
-            type="text"
-            id="username"
-            name="username"
-            value=data.username
-        )
+            input(type="submit" value="Register!")
 
-        label(for="password") Password:
-        input(
-            type="password"
-            id="password"
-            name="password"
-            value=data.password
-        )
+            if errors
+                ul
+                    for error in errors
+                        li(class='error')= error.msg
 
-        input(type="submit" value="Submit")
+        h4='Already have a user? '
+            a(href='/auth/login') Login here!
