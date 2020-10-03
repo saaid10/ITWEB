@@ -1,0 +1,3 @@
+"scripts": {
+    "herokupre": "cd Assignment1 && npm install && npm run start"
+  },
