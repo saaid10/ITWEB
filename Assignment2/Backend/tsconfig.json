@@ -77,8 +77,11 @@
       ],
       "@server": [
         "src/Server"
+      ],
+      "@models/*": [
+        "src/models/*"
       ]
-    },
+    }
   },
   "include": [
     "src/**/*.ts",

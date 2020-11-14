@@ -13,7 +13,7 @@ require("express-async-errors");
 const routes_1 = __importDefault(require("./routes"));
 const Logger_1 = __importDefault(require("@shared/Logger"));
 const compression_1 = __importDefault(require("compression"));
-require('./models/db');
+require('@models/db');
 const app = express_1.default();
 const { BAD_REQUEST } = http_status_codes_1.default;
 /************************************************************************************

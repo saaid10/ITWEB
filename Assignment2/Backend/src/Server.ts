@@ -11,7 +11,7 @@ import BaseRouter from './routes';
 import logger from '@shared/Logger';
 import compression from 'compression'
 
-require('./models/db');
+require('@models/db');
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
