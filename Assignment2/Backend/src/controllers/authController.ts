@@ -1,9 +1,9 @@
-import {Request, Response, Router} from 'express';
+import {Request, Response} from 'express';
 import logger from "@shared/Logger";
 import StatusCodes from "http-status-codes";
 const {BAD_REQUEST, CONFLICT} = StatusCodes
 
-import {IUser, IWorkout, IWorkoutProgram, Workout, WorkoutProgram, User} from "@models/user1";
+import {IUser, IWorkout, IWorkoutProgram, Workout, WorkoutProgram, User} from "@models/user";
 
 
 class responseToken {

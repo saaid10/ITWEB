@@ -46,4 +46,4 @@ process.on('SIGTERM', () => {
     });
 });
 
-require('./user1');
+require('./user');
