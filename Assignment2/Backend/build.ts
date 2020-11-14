@@ -10,8 +10,8 @@ try {
     // Remove current build
     fs.removeSync('./dist/');
     // Copy front-end files
-    fs.copySync('./src/public', './dist/public');
-    fs.copySync('./src/views', './dist/views');
+    fs.copySync('../Frontend/dist/Frontend/assets', './dist/public');
+    fs.copySync('../Frontend/dist/Frontend', './dist/views');
 } catch (err) {
     Logger.Err(err);
 }
