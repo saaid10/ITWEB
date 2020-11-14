@@ -4,7 +4,7 @@ const router = Router();
 
 import { check } from 'express-validator';
 
-const registrationHandler = [
+const registrationChecker = [
     check('username')
         .isLength({min: 1})
         .withMessage('Please enter a username'),
@@ -23,6 +23,16 @@ const registrationHandler = [
         }),
 ];
 
-router.post('/registration', registrationHandler, authController.registration)
+const loginChecker = [
+    check('username')
+        .isLength({min: 1})
+        .withMessage('Please enter a username'),
+    check('password')
+        .isLength({min: 1})
+        .withMessage('Please enter a password'),
+];
+
+router.post('/registration', registrationChecker, authController.registration)
+router.post('/login', loginChecker, authController.login)
 
 export default router;

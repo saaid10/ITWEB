@@ -7,7 +7,7 @@ const express_1 = require("express");
 const authController_1 = __importDefault(require("@controllers/authController"));
 const router = express_1.Router();
 const express_validator_1 = require("express-validator");
-const registrationHandler = [
+const registrationChecker = [
     express_validator_1.check('username')
         .isLength({ min: 1 })
         .withMessage('Please enter a username'),
@@ -26,5 +26,14 @@ const registrationHandler = [
         }
     }),
 ];
-router.post('/registration', registrationHandler, authController_1.default.registration);
+const loginChecker = [
+    express_validator_1.check('username')
+        .isLength({ min: 1 })
+        .withMessage('Please enter a username'),
+    express_validator_1.check('password')
+        .isLength({ min: 1 })
+        .withMessage('Please enter a password'),
+];
+router.post('/registration', registrationChecker, authController_1.default.registration);
+router.post('/login', loginChecker, authController_1.default.login);
 exports.default = router;

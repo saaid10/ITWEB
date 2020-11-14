@@ -1,9 +1,11 @@
 import {Request, Response} from 'express';
 import logger from "@shared/Logger";
 import StatusCodes from "http-status-codes";
-const {BAD_REQUEST, CONFLICT} = StatusCodes
+
+const {BAD_REQUEST, CONFLICT, OK, UNAUTHORIZED} = StatusCodes
 
 import {IUser, IWorkout, IWorkoutProgram, Workout, WorkoutProgram, User} from "@models/user";
+import {Result, validationResult} from "express-validator";
 
 
 class responseToken {
@@ -13,6 +15,7 @@ class responseToken {
         this.token = token;
     }
 }
+
 function addDemoWorkoutProgramToUser(user: IUser) {
     const workout: IWorkout = new Workout();
     workout.exercise = "Demo Exercise: Squat";
@@ -24,11 +27,13 @@ function addDemoWorkoutProgramToUser(user: IUser) {
     workoutProgram.addWorkout(workout);
     user.addWorkoutProgram(workoutProgram);
 }
+
 export default class authController {
 
     static registration = async (req: Request, res: Response) => {
-        if (!req.body.username || !req.body.password || !req.body.confirmPassword) {
-            res.sendStatus(BAD_REQUEST);
+        const errors: Result = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(BAD_REQUEST).send(errors.array());
             return;
         }
 
@@ -42,6 +47,36 @@ export default class authController {
         } catch (e) {
             logger.err(e)
             res.status(CONFLICT).json({"message": "Username already exists"})
+            return;
+        }
+    }
+
+    static login = async (req: Request, res: Response) => {
+        const errors: Result = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(UNAUTHORIZED).send(errors.array());
+            return;
+        }
+        const {username, password} = req.body;
+        try {
+            // Check if username and password are set
+            if (!(username && password)) {
+                throw new Error('No username or password provided')
+            }
+
+            const userFromDB: IUser | null = await User.findOne({username: username});
+
+            // Check if user is found in DB
+            if (userFromDB === null) throw new Error('User does not exist');
+
+            // Check if password is correct
+            if (!userFromDB.validatePassword(password)) throw new Error('Wrong password');
+
+            // All OK - Login success
+            res.status(OK).send({"token": userFromDB.generateJwt()});
+        } catch (e: any) {
+            res.status(UNAUTHORIZED)
+                .json({"message": `Something when wrong with user: ${username as string} - ${e}`});
             return;
         }
     }

@@ -14,8 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Logger_1 = __importDefault(require("@shared/Logger"));
 const http_status_codes_1 = __importDefault(require("http-status-codes"));
-const { BAD_REQUEST, CONFLICT } = http_status_codes_1.default;
+const { BAD_REQUEST, CONFLICT, OK, UNAUTHORIZED } = http_status_codes_1.default;
 const user_1 = require("@models/user");
+const express_validator_1 = require("express-validator");
 class responseToken {
     constructor(token) {
         this.token = token;
@@ -36,8 +37,9 @@ class authController {
 }
 exports.default = authController;
 authController.registration = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body.username || !req.body.password || !req.body.confirmPassword) {
-        res.sendStatus(BAD_REQUEST);
+    const errors = express_validator_1.validationResult(req);
+    if (!errors.isEmpty()) {
+        res.status(BAD_REQUEST).send(errors.array());
         return;
     }
     try {
@@ -51,6 +53,34 @@ authController.registration = (req, res) => __awaiter(void 0, void 0, void 0, fu
     catch (e) {
         Logger_1.default.err(e);
         res.status(CONFLICT).json({ "message": "Username already exists" });
+        return;
+    }
+});
+authController.login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const errors = express_validator_1.validationResult(req);
+    if (!errors.isEmpty()) {
+        res.status(UNAUTHORIZED).send(errors.array());
+        return;
+    }
+    const { username, password } = req.body;
+    try {
+        // Check if username and password are set
+        if (!(username && password)) {
+            throw new Error('No username or password provided');
+        }
+        const userFromDB = yield user_1.User.findOne({ username: username });
+        // Check if user is found in DB
+        if (userFromDB === null)
+            throw new Error('User does not exist');
+        // Check if password is correct
+        if (!userFromDB.validatePassword(password))
+            throw new Error('Wrong password');
+        // All OK - Login success
+        res.status(OK).send({ "token": userFromDB.generateJwt() });
+    }
+    catch (e) {
+        res.status(UNAUTHORIZED)
+            .json({ "message": `Something when wrong with user: ${username} - ${e}` });
         return;
     }
 });
