@@ -10,10 +10,10 @@ const helmet_1 = __importDefault(require("helmet"));
 const express_1 = __importDefault(require("express"));
 const http_status_codes_1 = __importDefault(require("http-status-codes"));
 require("express-async-errors");
-require('@models/db');
 const routes_1 = __importDefault(require("./routes"));
 const Logger_1 = __importDefault(require("@shared/Logger"));
 const compression_1 = __importDefault(require("compression"));
+const db_1 = __importDefault(require("@models/db"));
 const app = express_1.default();
 const { BAD_REQUEST } = http_status_codes_1.default;
 /************************************************************************************
@@ -30,6 +30,7 @@ if (process.env.NODE_ENV === 'development') {
 else {
     app.use(helmet_1.default());
 }
+new db_1.default();
 // Add APIs
 app.use('/api', routes_1.default);
 app.use(function (err, req, res, next) {
