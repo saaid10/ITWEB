@@ -1,20 +1,21 @@
 import StatusCodes from 'http-status-codes';
-import { Request, Response, Router } from 'express';
+import {Response, Router } from 'express';
 
 import UserDao from '@daos/User/UserDao.mock';
 import { paramMissingError, IRequest } from '@shared/constants';
+import logger from "@shared/Logger";
 
 const router = Router();
 const userDao = new UserDao();
 const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
 
-
 /******************************************************************************
  *                      Get All Users - "GET /api/users/all"
  ******************************************************************************/
 
-router.get('/all', async (req: Request, res: Response) => {
+router.get('/all', async (req: IRequest, res: Response) => {
+    logger.info(req.auth?.id, true)
     const users = await userDao.getAll();
     return res.status(OK).json({users});
 });
