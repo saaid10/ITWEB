@@ -1,4 +1,10 @@
 #!/bin/sh
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [[ "$BRANCH" != "master" ]]; then
+  echo 'Aborting script, please use master branch';
+  exit 1;
+fi
+git pull
 cd Frontend/
 npm install
 npm run build
