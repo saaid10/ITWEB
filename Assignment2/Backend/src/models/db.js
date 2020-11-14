@@ -1,9 +1,7 @@
-import mongoose from 'mongoose';
-
 const mongoose = require('mongoose');
 let dbURI = "mongodb+srv://glennlaursen:V%23-zUG9p5FyMP%24g@cluster0.htksm.gcp.mongodb.net/WebAssignment1?retryWrites=true&w=majority";
 if (process.env.NODE_ENV === 'production') {
-    dbURI = process.env.MONGODB_URI as string;
+    dbURI = process.env.MONGODB_URI;
 }
 mongoose.connect(dbURI, {
     useNewUrlParser: true,
@@ -22,7 +20,7 @@ mongoose.connection.on('disconnected', () => {
     console.log('Mongoose disconnected');
 });
 
-const gracefulShutdown = (msg: any, callback: any) => {
+const gracefulShutdown = (msg, callback) => {
     mongoose.connection.close(() => {
         console.log(`Mongoose disconnected through ${msg}`);
         callback();

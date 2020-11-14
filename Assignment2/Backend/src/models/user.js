@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -19,11 +17,11 @@ const workoutProgramSchema = new mongoose.Schema({
     workouts: [workoutSchema]
 })
 
-workoutProgramSchema.method('addWorkout', function (workout: any) {
+workoutProgramSchema.method('addWorkout', function (workout) {
     this.workouts.push(workout);
 });
 
-workoutProgramSchema.method('addWorkout', function (workout: any) {
+workoutProgramSchema.method('addWorkout', function (workout) {
     this.workouts.push(workout);
 });
 
@@ -40,15 +38,15 @@ const userSchema = new mongoose.Schema({
     workoutPrograms: [workoutProgramSchema]
 });
 
-userSchema.method('addWorkoutProgram', function (workoutProgram: any) {
+userSchema.method('addWorkoutProgram', function (workoutProgram) {
     this.workoutPrograms.push(workoutProgram);
 });
 
-userSchema.method('setPassword', function (password: any) {
+userSchema.method('setPassword', function (password) {
     this.password = bcrypt.hashSync(password, saltRounds);
 });
 
-userSchema.method('validatePassword', function (password: any) {
+userSchema.method('validatePassword', function (password) {
     return !!bcrypt.compareSync(password, this.password);
 });
 
