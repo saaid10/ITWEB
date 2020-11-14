@@ -1,10 +1,10 @@
-import mongoose, {Schema, Document} from 'mongoose';
+import mongoose, {Schema, Document, model} from 'mongoose';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 
 const saltRounds = 10;
 
-export interface workout extends Document{
+export interface IWorkout extends Document {
     exercise: string;
     description: string;
     sets: number;
@@ -18,9 +18,12 @@ const workoutSchema = new Schema({
     repsOrTime: String
 });
 
-export interface workoutProgram extends Document{
+
+export interface IWorkoutProgram extends Document {
     name: string;
-    workouts: [workout];
+    workouts: IWorkout[];
+
+    addWorkout(workout: IWorkout): void;
 }
 
 const workoutProgramSchema = new Schema({
@@ -31,13 +34,21 @@ const workoutProgramSchema = new Schema({
     workouts: [workoutSchema]
 });
 
-export interface IUser extends Document{
+workoutProgramSchema.methods.addWorkout = function (workout: IWorkout): void {
+    this.workouts.push(workout);
+};
+
+export interface IUser extends Document {
     username: string;
     password: string;
-    workoutPrograms: workoutProgram[];
-    addWorkoutProgram(workoutProgram: workoutProgram): void;
+    workoutPrograms: IWorkoutProgram[];
+
+    addWorkoutProgram(workoutProgram: IWorkoutProgram): void;
+
     setPassword(password: string): void;
+
     validatePassword(password: string): boolean;
+
     generateJwt(): string;
 }
 
@@ -54,19 +65,19 @@ const userSchema = new Schema({
     workoutPrograms: [workoutProgramSchema]
 });
 
-userSchema.methods.addWorkoutProgram = function (workoutProgram: workoutProgram) {
+userSchema.methods.addWorkoutProgram = function (workoutProgram: IWorkoutProgram): void {
     this.workoutPrograms.push(workoutProgram);
 };
 
-userSchema.methods.setPassword = function (password: string) {
+userSchema.methods.setPassword = function (password: string): void {
     this.password = bcrypt.hashSync(password, saltRounds);
 };
 
-userSchema.methods.validatePassword = function (password: string)  {
+userSchema.methods.validatePassword = function (password: string): boolean {
     return bcrypt.compareSync(password, this.password);
 }
 
-userSchema.methods.generateJwt = function () {
+userSchema.methods.generateJwt = function (): string {
     const expiry = new Date();
     expiry.setDate(expiry.getDate() + 7); // Use 1 hour for better security
 
@@ -77,4 +88,10 @@ userSchema.methods.generateJwt = function () {
     }, process.env.JWT_SECRET as string); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };
 
-export default mongoose.model<IUser>('User', userSchema);
+// export default mongoose.model<IUser>('User', userSchema);
+const Workout = mongoose.model<IWorkout>('workout', workoutSchema);
+const WorkoutProgram = mongoose.model<IWorkoutProgram>('workoutProgram', workoutProgramSchema);
+const User = mongoose.model<IUser>("User", userSchema);
+export {User}
+export {WorkoutProgram}
+export {Workout}
