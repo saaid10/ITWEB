@@ -10,10 +10,10 @@ const helmet_1 = __importDefault(require("helmet"));
 const express_1 = __importDefault(require("express"));
 const http_status_codes_1 = __importDefault(require("http-status-codes"));
 require("express-async-errors");
+require('@models/db');
 const routes_1 = __importDefault(require("./routes"));
 const Logger_1 = __importDefault(require("@shared/Logger"));
 const compression_1 = __importDefault(require("compression"));
-require('@models/db');
 const app = express_1.default();
 const { BAD_REQUEST } = http_status_codes_1.default;
 /************************************************************************************
@@ -32,6 +32,16 @@ else {
 }
 // Add APIs
 app.use('/api', routes_1.default);
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+        Logger_1.default.err(err, true);
+        res.status(401);
+        res.json({ "message": err.name + ": " + err.message });
+    }
+    else {
+        next(err);
+    }
+});
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err, req, res, next) => {

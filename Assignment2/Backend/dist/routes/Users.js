@@ -16,6 +16,7 @@ const http_status_codes_1 = __importDefault(require("http-status-codes"));
 const express_1 = require("express");
 const UserDao_mock_1 = __importDefault(require("@daos/User/UserDao.mock"));
 const constants_1 = require("@shared/constants");
+const Logger_1 = __importDefault(require("@shared/Logger"));
 const router = express_1.Router();
 const userDao = new UserDao_mock_1.default();
 const { BAD_REQUEST, CREATED, OK } = http_status_codes_1.default;
@@ -23,6 +24,8 @@ const { BAD_REQUEST, CREATED, OK } = http_status_codes_1.default;
  *                      Get All Users - "GET /api/users/all"
  ******************************************************************************/
 router.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    Logger_1.default.info((_a = req.auth) === null || _a === void 0 ? void 0 : _a.id, true);
     const users = yield userDao.getAll();
     return res.status(OK).json({ users });
 }));
