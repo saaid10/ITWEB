@@ -9,11 +9,10 @@ import 'express-async-errors';
 
 import BaseRouter from './routes';
 import logger from '@shared/Logger';
+import compression from 'compression'
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
-
-
 
 /************************************************************************************
  *                              Set basic express settings
@@ -22,6 +21,7 @@ const { BAD_REQUEST } = StatusCodes;
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
+app.use(compression());
 
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {
@@ -48,9 +48,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
  *                              Serve front-end content
  ***********************************************************************************/
 
-const viewsDir = path.join(__dirname, 'views');
+const viewsDir = path.join(__dirname, 'Build');
 app.set('views', viewsDir);
-const staticDir = path.join(__dirname, 'public');
+const staticDir = path.join(__dirname, 'Build');
 app.use(express.static(staticDir));
 app.get('*', (req: Request, res: Response) => {
     res.sendFile('index.html', {root: viewsDir});

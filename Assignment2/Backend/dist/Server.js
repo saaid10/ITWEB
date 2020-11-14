@@ -12,6 +12,7 @@ const http_status_codes_1 = __importDefault(require("http-status-codes"));
 require("express-async-errors");
 const routes_1 = __importDefault(require("./routes"));
 const Logger_1 = __importDefault(require("@shared/Logger"));
+const compression_1 = __importDefault(require("compression"));
 const app = express_1.default();
 const { BAD_REQUEST } = http_status_codes_1.default;
 /************************************************************************************
@@ -20,6 +21,7 @@ const { BAD_REQUEST } = http_status_codes_1.default;
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(cookie_parser_1.default());
+app.use(compression_1.default());
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan_1.default('dev'));
@@ -40,9 +42,9 @@ app.use((err, req, res, next) => {
 /************************************************************************************
  *                              Serve front-end content
  ***********************************************************************************/
-const viewsDir = path_1.default.join(__dirname, 'views');
+const viewsDir = path_1.default.join(__dirname, 'Build');
 app.set('views', viewsDir);
-const staticDir = path_1.default.join(__dirname, 'public');
+const staticDir = path_1.default.join(__dirname, 'Build');
 app.use(express_1.default.static(staticDir));
 app.get('*', (req, res) => {
     res.sendFile('index.html', { root: viewsDir });
