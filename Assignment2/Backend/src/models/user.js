@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
 
 const workoutSchema = new mongoose.Schema({
     exercise: String,
@@ -49,6 +51,17 @@ userSchema.method('setPassword', function (password) {
 userSchema.method('validatePassword', function (password) {
     return !!bcrypt.compareSync(password, this.password);
 });
+userSchema.method('generateJwt', function () {
+    let expiry = new Date();
+    expiry.setDate(expiry.getDate() + 7); // Use 1 hour for better security
+
+    return jwt.sign({
+        _id: this._id,
+        username: this.username,
+        exp: parseInt(expiry.getTime() / 1000), // as Unix time in seconds
+    }, process.env.JWT_SECRET); // DO NOT KEEP YOUR SECRET IN THE CODE!
+});
+
 
 const Workout = mongoose.model('workout', workoutSchema);
 const WorkoutProgram = mongoose.model('workoutProgram', workoutProgramSchema);

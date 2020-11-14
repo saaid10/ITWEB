@@ -3,18 +3,16 @@ import morgan from 'morgan';
 import path from 'path';
 import helmet from 'helmet';
 
-import express, { NextFunction, Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import StatusCodes from 'http-status-codes';
 import 'express-async-errors';
-
+require('@models/db');
 import BaseRouter from './routes';
 import logger from '@shared/Logger';
 import compression from 'compression'
 
-require('@models/db');
-
 const app = express();
-const { BAD_REQUEST } = StatusCodes;
+const {BAD_REQUEST} = StatusCodes;
 
 /************************************************************************************
  *                              Set basic express settings
@@ -35,6 +33,16 @@ if (process.env.NODE_ENV === 'development') {
 // Add APIs
 app.use('/api', BaseRouter);
 
+app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
+    if (err.name === 'UnauthorizedError') {
+        logger.err(err, true);
+        res.status(401);
+        res.json({"message": err.name + ": " + err.message});
+    } else {
+        next(err);
+    }
+});
+
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -43,7 +51,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
         error: err.message,
     });
 });
-
 
 
 /************************************************************************************

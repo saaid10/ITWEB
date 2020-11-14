@@ -80,6 +80,9 @@
       ],
       "@models/*": [
         "src/models/*"
+      ],
+      "@controllers/*": [
+        "src/controllers/*"
       ]
     }
   },
