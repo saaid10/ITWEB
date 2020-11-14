@@ -71,6 +71,7 @@ userSchema.methods.generateJwt = function () {
     expiry.setDate(expiry.getDate() + 7); // Use 1 hour for better security
 
     return jwt.sign({
+        id: this._id,
         username: this.username,
         exp: parseInt(String(expiry.getTime() / 1000)), // as Unix time in seconds
     }, process.env.JWT_SECRET as string); // DO NOT KEEP YOUR SECRET IN THE CODE!

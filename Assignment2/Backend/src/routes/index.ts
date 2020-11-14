@@ -5,8 +5,8 @@ import jwt from 'express-jwt';
 
 const auth = jwt({
     secret: process.env.JWT_SECRET as string,
-    userProperty: 'payload',
-    algorithms: ['RS256']
+    algorithms: ['HS256'],
+    requestProperty: 'auth'
 });
 
 // Init router and path

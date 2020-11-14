@@ -1,10 +1,10 @@
 import {Request, Response, Router} from 'express';
-import {BAD_REQUEST, CONFLICT} from "http-status-codes";
-import User, {IUser} from "@models/user1";
-import mongoose from "mongoose";
 import logger from "@shared/Logger";
+import StatusCodes from "http-status-codes";
+const {BAD_REQUEST, CONFLICT} = StatusCodes
 
-// const userColl = mongoose.model('User');
+import User, {IUser} from "@models/user1";
+
 
 class responseToken {
     public token: string;
@@ -15,7 +15,7 @@ class responseToken {
 }
 
 export default class authController {
-    static async registration(req: Request, res: Response) {
+    static registration = async (req: Request, res: Response) => {
         if (!req.body.username || !req.body.password || !req.body.confirmPassword) {
             res.sendStatus(BAD_REQUEST);
             return;
@@ -29,7 +29,7 @@ export default class authController {
             res.send(new responseToken(user.generateJwt()));
         } catch (e) {
             logger.err(e)
-            res.sendStatus(CONFLICT);
+            res.status(CONFLICT).json({"message": "Username already exists"})
             return;
         }
     }
