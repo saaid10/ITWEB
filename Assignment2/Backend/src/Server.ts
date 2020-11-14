@@ -6,10 +6,10 @@ import helmet from 'helmet';
 import express, {NextFunction, Request, Response} from 'express';
 import StatusCodes from 'http-status-codes';
 import 'express-async-errors';
-require('@models/db');
 import BaseRouter from './routes';
 import logger from '@shared/Logger';
 import compression from 'compression'
+import DatabaseSetup from "@models/db";
 
 const app = express();
 const {BAD_REQUEST} = StatusCodes;
@@ -29,6 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
     app.use(helmet());
 }
+new DatabaseSetup();
 
 // Add APIs
 app.use('/api', BaseRouter);
