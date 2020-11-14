@@ -82,7 +82,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "spec/**/*.ts"
+    "spec/**/*.ts", "src/models/db.js", "src/models/user.js"
   ],
   "exclude": [
     "src/public/"
