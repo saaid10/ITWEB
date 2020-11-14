@@ -1,0 +1,51 @@
+import mongoose from 'mongoose';
+
+const mongoose = require('mongoose');
+let dbURI = "mongodb+srv://glennlaursen:V%23-zUG9p5FyMP%24g@cluster0.htksm.gcp.mongodb.net/WebAssignment1?retryWrites=true&w=majority";
+if (process.env.NODE_ENV === 'production') {
+    dbURI = process.env.MONGODB_URI as string;
+}
+mongoose.connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+mongoose.set('useCreateIndex', true);
+
+mongoose.connection.on('connected', () => {
+    console.log(`Mongoose connected to ${dbURI}`);
+});
+mongoose.connection.on('error', err => {
+    console.log('Mongoose connection error:', err);
+});
+mongoose.connection.on('disconnected', () => {
+    console.log('Mongoose disconnected');
+});
+
+const gracefulShutdown = (msg: any, callback: any) => {
+    mongoose.connection.close(() => {
+        console.log(`Mongoose disconnected through ${msg}`);
+        callback();
+    });
+};
+
+// For nodemon restarts
+process.once('SIGUSR2', () => {
+    gracefulShutdown('nodemon restart', () => {
+        process.kill(process.pid, 'SIGUSR2');
+    });
+});
+// For app termination
+process.on('SIGINT', () => {
+    gracefulShutdown('app termination', () => {
+        process.exit(0);
+    });
+});
+// For Heroku app termination
+process.on('SIGTERM', () => {
+    gracefulShutdown('Heroku app shutdown', () => {
+        process.exit(0);
+    });
+});
+
+require('./user');
