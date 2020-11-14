@@ -12,7 +12,7 @@
     "watch": [
       "src"
     ],
-    "ext": "ts, html",
+    "ext": "ts, html, js",
     "ignore": [
       "src/public"
     ],
