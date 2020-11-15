@@ -8,7 +8,14 @@ export interface User {
     confirmPassword?: string
 }
 
+interface AuthToken {
+    token: string
+}
 
+export const signOut = () => {
+    window.localStorage.removeItem("loc8r-token");
+    window.location.reload();
+}
 
 @Injectable({
     providedIn: 'root',
@@ -17,12 +24,14 @@ export class AuthenticationService {
 
     constructor(private http: HttpClient) { }
 
-    apiBaseUrl = "http://localhost:3000/api/";
+    apiBaseUrl = "/api/";
     redirectUrl: string = "";
 
+    setToken = (token: string) => {
+        window.localStorage['loc8r-token'] = token;
+    }
 
-
-    getToken = () => {
+    getToken = (): string => {
         if (window.localStorage['loc8r-token']) {
             return window.localStorage['loc8r-token'];
         } else {
@@ -34,15 +43,14 @@ export class AuthenticationService {
     httpOptions = {
         headers: new HttpHeaders({
             'Access-Control-Allow-Origin': '*',
-        }).set('Authorization', 'Bearer ' +
-            this.getToken()),
+        }).set('Access-Control-Allow-Origin', '*')
     }
 
 
-    SignIn = (user: User) => {
+    signIn = (user: User) => {
         const url = `${this.apiBaseUrl}auth/login`;
-        this.http.post<string>(url, user, this.httpOptions).subscribe(data => {
-            this.saveToken(data);
+        this.http.post<AuthToken>(url, user, this.httpOptions).subscribe(data => {
+            this.setToken(data.token);
             return true;
         },
             // Errors will call this callback instead:
@@ -59,10 +67,10 @@ export class AuthenticationService {
             });
     }
 
-    public register(user: User) {
+    register(user: User) {
         const url = `${this.apiBaseUrl}auth/registration`;
-        this.http.post<string>(url, user, this.httpOptions).subscribe(data => {
-            this.saveToken(data);
+        this.http.post<AuthToken>(url, user, this.httpOptions).subscribe(data => {
+            this.setToken(data.token);
             return true;
         },
             // Errors will call this callback instead:
@@ -77,14 +85,6 @@ export class AuthenticationService {
                 }
                 return false;
             });
-    }
-
-    SignOut = () => {
-        window.localStorage.removeItem("loc8r-token")
-    }
-
-    saveToken = (token: string) => {
-        window.localStorage['loc8r-token'] = token;
     }
 
 

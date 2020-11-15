@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { signOut } from './auth/auth-service'
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,8 @@ export class AppComponent {
 
   workoutcards = ["test1","test2","test3"]
   title = 'Frontend';
+
+  signOut = () => {
+    signOut();
+  }
 }
