@@ -4,7 +4,7 @@ if [[ "$BRANCH" != "master" ]]; then
   echo 'Aborting script, please use master branch';
   exit 1;
 fi
-heroku git:remote -a ballz2
+heroku git:remote -a ballzfitness
 git pull
 cd Frontend/
 npm install
