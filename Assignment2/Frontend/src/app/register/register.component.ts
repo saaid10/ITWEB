@@ -32,8 +32,8 @@ export class RegisterComponent implements OnInit {
       password: this.loginFormModel.value.password,
       confirmPassword: this.loginFormModel.value.confirmPassword
     }
+    if (user.password !== user.confirmPassword) return;
     this.authService?.register(user);
-    console.log(this.authService)
   }
 
   ngOnInit(): void {

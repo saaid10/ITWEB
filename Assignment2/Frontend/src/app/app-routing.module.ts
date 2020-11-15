@@ -10,12 +10,12 @@ import { DetailsComponent } from './details/details.component';
 import { AddWorkoutComponent } from './add-workout/add-workout.component';
 
 const routes: Routes = [
-  { path: 'addworkout', component: WorkoutComponent },
+  { path: 'addworkout', component: WorkoutComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegisterComponent },
   { path: 'addprogram', component: AddprogramComponent, canActivate: [AuthGuard] },
-  { path: 'programs/:programId', component: DetailsComponent },
-  { path: 'addWorkout/:programId', component: AddWorkoutComponent },
+  { path: 'programs/:programId', component: DetailsComponent, canActivate: [AuthGuard] },
+  { path: 'addWorkout/:programId', component: AddWorkoutComponent, canActivate: [AuthGuard] },
   { path: '', component: WorkoutComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '' },
 ]

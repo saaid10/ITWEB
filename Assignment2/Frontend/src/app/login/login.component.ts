@@ -28,10 +28,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.loginFormModel.value);
     let user: User = { username: this.loginFormModel.value.username, password: this.loginFormModel.value.password }
-    this.authService?.SignIn(user);
-    console.log(this.authService)
+    this.authService?.signIn(user);
   }
 
   ngOnInit(): void {
