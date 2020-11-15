@@ -1,11 +1,8 @@
-import {Request, Response} from "express";
-import {IUser, IWorkout, IWorkoutProgram, Workout, WorkoutProgram, User} from "@models/user";
-import {AuthTokenInfo, IRequest} from "@shared/constants";
-import {BAD_REQUEST, OK, UNAUTHORIZED} from "http-status-codes";
-import logger from "@shared/Logger";
-import jwt from "express-jwt";
-import jsonwebtoken from 'jsonwebtoken'
-import {auth} from "@shared/functions";
+import { Response} from "express";
+import {IUser,  IWorkoutProgram, User} from "@models/user";
+import {IRequest} from "@shared/constants";
+import StatusCodes from "http-status-codes";
+const {BAD_REQUEST, OK, UNAUTHORIZED} = StatusCodes
 
 
 export default class programsController {
@@ -21,15 +18,12 @@ export default class programsController {
                 demoPrograms = demoUser.workoutPrograms;
             }
 
-            if (!req.headers.authorization) {
-                res.status(OK).send(demoPrograms);
+            if (!req.auth) {
+                res.status(OK).json({"workoutPrograms": demoPrograms});
                 return;
             }
 
-            const usertoken = req.headers.authorization;
-            const token = usertoken.split(' ');
-            const decoded: AuthTokenInfo = jsonwebtoken.verify(token[1], process.env.JWT_SECRET as string) as AuthTokenInfo;
-            const personalUser: IUser | null = await User.findById(decoded.id);
+            const personalUser: IUser | null = await User.findById(req.auth.id);
 
             let personalPrograms: IWorkoutProgram[];
 
@@ -40,7 +34,7 @@ export default class programsController {
             }
 
             const array = demoPrograms.concat(personalPrograms);
-            res.status(OK).send(array);
+            res.status(OK).json({"workoutPrograms": array});
 
         } catch (e) {
             res.status(UNAUTHORIZED)
@@ -65,19 +59,81 @@ export default class programsController {
                     .json({"message": `Something when wrong - ${e}`});
                 return;
             }
+        } else {
+            res.sendStatus(BAD_REQUEST);
         }
     }
 
-    static getProgram = async (req: Request, res: Response) => {
+    static getProgram = async (req: IRequest, res: Response) => {
+        if (req.params.programId) {
+            try {
+                const demoUser = await User.findOne({username: 'publicUser'})
+                let demoProgram;
+                if (demoUser !== null) {
+                    demoProgram = demoUser.workoutPrograms
+                        .find((program) => program._id.toString() === req.params.programId.toString());
+                }
+                if (demoProgram) {
+                    res.status(OK).json({"workoutProgram": demoProgram});
+                    return;
+                }
 
+                if (!req.auth) throw new Error('Trying to get personal data, without being logged in');
+
+                const personalUser = await User.findById(req.auth.id);
+                if (personalUser === null) throw new Error('User does not exist');
+                const personalProgram = personalUser.workoutPrograms
+                    .find((program) => program._id.toString() === req.params.programId.toString())
+
+                if (!personalProgram) throw new Error('Program not found');
+
+                res.status(OK).json({"workoutProgram": personalProgram});
+            } catch (e) {
+                res.status(BAD_REQUEST)
+                    .json({"message": `Something when wrong - ${e}`});
+                return;
+            }
+        } else {
+            res.sendStatus(BAD_REQUEST);
+        }
     }
 
-    static updateProgram = async (req: Request, res: Response) => {
+    static updateProgram = async (req: IRequest, res: Response) => {
+        if (!req.body.program || !req.params.programId) res.sendStatus(BAD_REQUEST);
+        try {
+            const user = await User.findById(req.auth?.id);
+            if (!user) throw new Error('User not found');
 
+            const program: IWorkoutProgram | undefined =
+                user.workoutPrograms.find((program) => program._id.toString() === req.params.programId.toString());
+            if (!program) throw new Error('Program not found');
+
+            program.name = req.body.program.name;
+            program.workouts = req.body.program.workouts;
+
+            const savedUser = await user.save();
+            res.status(OK).json({"user": savedUser});
+        } catch (e) {
+            res.status(BAD_REQUEST)
+                .json({"message": `Something when wrong - ${e}`});
+            return;
+        }
     }
 
-    static deleteProgram = async (req: Request, res: Response) => {
+    static deleteProgram = async (req: IRequest, res: Response) => {
+        if (!req.params.programId) res.sendStatus(BAD_REQUEST);
+        try {
+            const user = await User.findById(req.auth?.id);
+            if (!user) throw new Error('User not found');
 
+            user.workoutPrograms.find((program) => program._id.toString() === req.params.programId.toString())?.remove();
+            const savedUser = await user.save();
+            res.status(OK).json({"user": savedUser});
+        } catch (e) {
+            res.status(BAD_REQUEST)
+                .json({"message": `Something when wrong - ${e}`});
+            return;
+        }
     }
 
 }

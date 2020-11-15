@@ -16,3 +16,10 @@ export const auth = jwt({
     algorithms: ['HS256'],
     requestProperty: 'auth'
 });
+
+export const authCredentialsNotRequired = jwt({
+    secret: process.env.JWT_SECRET as string,
+    algorithms: ['HS256'],
+    requestProperty: 'auth',
+    credentialsRequired: false
+});

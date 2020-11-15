@@ -1,18 +1,18 @@
 import {Router} from "express";
 import programsController from "@controllers/programsController";
-import {auth} from "@shared/functions";
+import {auth, authCredentialsNotRequired} from "@shared/functions";
 
 const router: Router = Router();
 
 
 router
     .route('/')
-    .get(programsController.getPrograms)
+    .get(authCredentialsNotRequired, programsController.getPrograms)
     .post(auth, programsController.addNewProgram)
 
 router
     .route('/:programId')
-    .get(programsController.getProgram)
+    .get(authCredentialsNotRequired, programsController.getProgram)
     .put(auth, programsController.updateProgram)
     .delete(auth, programsController.deleteProgram)
 
