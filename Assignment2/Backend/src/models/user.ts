@@ -7,7 +7,7 @@ const saltRounds = 10;
 export interface IWorkout extends Document {
     exercise: string;
     description: string;
-    sets: number;
+    set: any; // Workout set, not document set.
     repsOrTime: string;
 }
 
