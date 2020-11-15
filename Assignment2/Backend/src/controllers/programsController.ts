@@ -58,7 +58,8 @@ export default class programsController {
                 if (user === null) throw new Error('User not found');
 
                 user.addWorkoutProgram(req.body.program);
-
+                const saved = await user.save();
+                res.status(OK).send(saved);
             } catch (e) {
                 res.status(BAD_REQUEST)
                     .json({"message": `Something when wrong - ${e}`});
