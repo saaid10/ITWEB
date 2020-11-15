@@ -6,7 +6,7 @@ import { WorkoutComponent } from './workout/workout.component';
 const routes: Routes = [
   { path: 'addprogram', component: AddprogramComponent}
   ,
-  { path: 'addworkout', component: WorkoutComponent}
+  { path: '', component: WorkoutComponent}
 ];
 
 @NgModule({

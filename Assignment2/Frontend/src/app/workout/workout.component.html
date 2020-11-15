@@ -1,17 +1,23 @@
 <div class="header">
-    <h1 class="">Homepage - Workout List</h1>
-    <button mat-raised-button color="primary" routerLink="/addprogram">Add Workout Program</button>
+  <h1 class="">Homepage - Workout List</h1>
+  <button mat-raised-button color="primary" routerLink="/addprogram">Add Workout Program</button>
 </div>
 
 <div class="basic-container">
-    
-    <mat-card *ngFor="let workoutcard of workoutcards" class="workoutcard-container">{{workoutcard}}
-        <div></div>
-        <hr class="hr">
-            <div class="exercise-title">Exercise</div>
-            <div>
-                <button mat-raised-button color="primary">Show details</button>
-                <button mat-raised-button color="primary">Add workout to program</button>
-            </div>
-    </mat-card>
+
+  <mat-card *ngFor="let program of programs" class="workoutcard-container">
+    <h2>{{program.name}}</h2>
+    <hr class="hr">
+    <p class="exercise-title">First exercise</p>
+    <ul>
+      <li><p>Name: {{program.workouts[0].exercise}}</p></li>
+      <li><p>Description: {{program.workouts[0].description}}</p></li>
+      <li><p>Sets: {{program.workouts[0].set}}</p></li>
+      <li><p>Reps Or Time: {{program.workouts[0].repsOrTime}}</p></li>
+    </ul>
+    <div>
+      <button mat-raised-button color="primary" (click)="details(program._id)">Show details</button>
+      <button mat-raised-button color="primary" (click)="addWorkout(program)">Add workout to program</button>
+    </div>
+  </mat-card>
 </div>

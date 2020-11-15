@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import WorkoutProgram from '../shared/models/WorkoutProgram';
 
 @Component({
   selector: 'app-workout',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkoutComponent implements OnInit {
 
-  constructor() { }
-  workoutcards = ["test1","test2","test3"]
+  constructor(private http: HttpClient) { }
+  programs: WorkoutProgram[] = [];
   ngOnInit(): void {
+    this.http.get<ProgramApi>('/api/programs').subscribe((s) => this.programs = s.workoutPrograms);
   }
 
+  details(id: string): void {
+    console.log(id);
+  }
+
+  addWorkout(program: WorkoutProgram): void {
+    console.log(program);
+  }
+}
+
+interface ProgramApi {
+  workoutPrograms: WorkoutProgram[];
 }

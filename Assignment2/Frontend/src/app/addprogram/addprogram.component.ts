@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import WorkoutProgram from '../shared/models/WorkoutProgram';
 
 
 
@@ -10,12 +12,18 @@ import { Router } from '@angular/router';
 })
 export class AddprogramComponent implements OnInit {
 
-  value = 'Clear me';
+  value = '';
 
-  constructor(private route: Router) { }
+  constructor(private route: Router,
+              private http: HttpClient) { }
 
-  
+
   ngOnInit(): void {
+  }
+
+  public submit(): void {
+    const program123 = new WorkoutProgram(this.value, [], '');
+    this.http.post('/api/programs', {program: program123}).subscribe((s) => this.route.navigateByUrl(''));
   }
 
 }
