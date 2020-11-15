@@ -11,8 +11,10 @@ import logger from '@shared/Logger';
 import compression from 'compression'
 import DatabaseSetup from "@models/db";
 
+var cors = require('cors');
 const app = express();
 const {BAD_REQUEST} = StatusCodes;
+app.use(cors());
 
 /************************************************************************************
  *                              Set basic express settings

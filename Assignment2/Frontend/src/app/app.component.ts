@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {AuthenticationService} from './auth/auth-service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
-  constructor(private route: Router) { }
+  constructor(private auth: AuthenticationService) { }
 
-  workoutcards = ["test1","test2","test3"]
   title = 'Frontend';
+
+  signOut() {
+    this.auth.SignOut();
+  }
 }

@@ -1,8 +1,8 @@
 <div class="title-container">
     <a href="/">BALLZFITNESS</a>
-    <div class="sign-in-out"><button mat-raised-button color="warn">LogOut</button>
+    <div class="sign-in-out"><button mat-raised-button color="warn" (click)="signOut()">LogOut</button>
     </div>
-    <div class="sign-in-out"><button mat-raised-button color="primary">LogIn</button></div>
+    <div class="sign-in-out"><button mat-raised-button color="primary" routerLink="/login">LogIn</button></div>
     <div class="sign-in-out"><button mat-raised-button color="primary" routerLink="">Home</button></div>
 </div>
 <router-outlet></router-outlet>
