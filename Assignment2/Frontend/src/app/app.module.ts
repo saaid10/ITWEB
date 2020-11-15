@@ -12,12 +12,14 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddprogramComponent,
     WorkoutComponent,
+    DetailsComponent,
   ],
   imports: [
     BrowserModule,

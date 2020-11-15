@@ -1,0 +1,15 @@
+<div class="basic-container">
+
+  <mat-card class="workoutcard-container" *ngIf="program">
+    <h2>{{program.name}}</h2>
+    <div *ngFor="let workout of program.workouts">
+      <hr class="hr">
+      <p>Name: {{workout.exercise}}</p>
+      <ul>
+        <li><p>Description: {{workout.description}}</p></li>
+        <li><p>Sets: {{workout.set}}</p></li>
+        <li><p>Reps Or Time: {{workout.repsOrTime}}</p></li>
+      </ul>
+    </div>
+  </mat-card>
+</div>
