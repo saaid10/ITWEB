@@ -16,9 +16,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth-intercepter';
 import { RegisterComponent } from './register/register.component';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { DetailsComponent } from './details/details.component';
+import { AddWorkoutComponent } from './add-workout/add-workout.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { RegisterComponent } from './register/register.component';
     AddprogramComponent,
     WorkoutComponent,
     RegisterComponent,
+    DetailsComponent,
+    AddWorkoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,8 @@ import { RegisterComponent } from './register/register.component';
     MatButtonModule,
 
     HttpClientModule,
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

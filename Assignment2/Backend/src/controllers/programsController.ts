@@ -51,6 +51,8 @@ export default class programsController {
                 const user = await User.findById(req.auth.id);
                 if (user === null) throw new Error('User not found');
 
+                delete req.body.program._id // Let db set id
+
                 user.addWorkoutProgram(req.body.program);
                 const saved = await user.save();
                 res.status(OK).send(saved);

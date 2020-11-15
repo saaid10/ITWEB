@@ -7,7 +7,7 @@ const saltRounds = 10;
 export interface IWorkout extends Document {
     exercise: string;
     description: string;
-    sets: number;
+    set: any; // Workout set, not document set.
     repsOrTime: string;
 }
 
@@ -22,7 +22,7 @@ const workoutSchema = new Schema({
 export interface IWorkoutProgram extends Document {
     name: string;
     workouts: IWorkout[];
-
+    isPublic: boolean;
     addWorkout(workout: IWorkout): void;
 }
 
@@ -31,7 +31,11 @@ const workoutProgramSchema = new Schema({
         type: String,
         required: true
     },
-    workouts: [workoutSchema]
+    workouts: [workoutSchema],
+    isPublic: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 workoutProgramSchema.methods.addWorkout = function (workout: IWorkout): void {

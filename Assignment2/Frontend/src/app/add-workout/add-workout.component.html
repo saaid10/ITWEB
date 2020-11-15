@@ -1,0 +1,49 @@
+<div class="header" *ngIf="program">
+  <h1>Add Workout to {{program.name}}</h1>
+</div>
+
+<div class="basic-container" *ngIf="program">
+  <mat-card class="workoutcard-container">You can Add a new workout to your program here
+    <br>
+    <br>
+    <p>
+      <mat-form-field class="example-form-field">
+        <mat-label>Exercise</mat-label>
+        <input matInput type="text" [(ngModel)]="exercise">
+        <button mat-button *ngIf="exercise" matSuffix mat-icon-button aria-label="Clear" (click)="exercise=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="example-form-field">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" [(ngModel)]="description">
+        <button mat-button *ngIf="description" matSuffix mat-icon-button aria-label="Clear" (click)="description=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="example-form-field">
+        <mat-label>Sets</mat-label>
+        <input matInput type="text" [(ngModel)]="set">
+        <button mat-button *ngIf="set" matSuffix mat-icon-button aria-label="Clear" (click)="set=undefined">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="example-form-field">
+        <mat-label>Reps or Time</mat-label>
+        <input matInput type="text" [(ngModel)]="repsOrTime">
+        <button mat-button *ngIf="repsOrTime" matSuffix mat-icon-button aria-label="Clear" (click)="repsOrTime=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </p>
+    <br>
+    <br>
+    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+  </mat-card>
+</div>

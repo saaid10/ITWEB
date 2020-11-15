@@ -19,7 +19,7 @@ function addDemoWorkoutProgramToUser(user: IUser) {
     const workout: IWorkout = new Workout();
     workout.exercise = "Demo Exercise: Squat";
     workout.description = "Stand with your feet spread shoulderwidth apart. Lower your body as far as you can by pushing your hips back and bending your knees. Pause, and then slowly push yourself back to the starting position."
-    workout.sets = 3;
+    workout.set = 3;
     workout.repsOrTime = "20";
     const workoutProgram: IWorkoutProgram = new WorkoutProgram();
     workoutProgram.name = "Demo Workout Program";

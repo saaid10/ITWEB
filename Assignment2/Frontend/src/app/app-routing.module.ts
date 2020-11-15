@@ -6,13 +6,19 @@ import { WorkoutComponent } from './workout/workout.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthenticationService } from './auth/auth-service';
 import { RegisterComponent } from './register/register.component';
+import { DetailsComponent } from './details/details.component';
+import { AddWorkoutComponent } from './add-workout/add-workout.component';
 
 const routes: Routes = [
-  { path: 'addprogram', component: AddprogramComponent, canActivate: [AuthGuard] },
   { path: 'addworkout', component: WorkoutComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegisterComponent}
-];
+  { path: 'registration', component: RegisterComponent },
+  { path: 'addprogram', component: AddprogramComponent, canActivate: [AuthGuard] },
+  { path: 'programs/:programId', component: DetailsComponent },
+  { path: 'addWorkout/:programId', component: AddWorkoutComponent },
+  { path: '', component: WorkoutComponent, pathMatch: 'full' },
+  { path: '**', redirectTo: '' },
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
