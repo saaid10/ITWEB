@@ -3,13 +3,13 @@
   <button mat-raised-button color="primary" routerLink="/addprogram">Add Workout Program</button>
 </div>
 
-<div class="basic-container">
+<div class="test-container">
 
   <mat-card *ngFor="let program of programs" class="workoutcard-container">
     <h2>{{program.name}}</h2>
     <hr class="hr">
     <p class="exercise-title">First exercise</p>
-    <ul>
+    <ul *ngIf="program.workouts[0]">
       <li><p>Name: {{program.workouts[0].exercise}}</p></li>
       <li><p>Description: {{program.workouts[0].description}}</p></li>
       <li><p>Sets: {{program.workouts[0].set}}</p></li>

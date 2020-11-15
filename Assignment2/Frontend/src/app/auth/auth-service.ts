@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Router} from '@angular/router';
 
 
 export interface User {
@@ -15,9 +16,10 @@ export interface User {
 })
 export class AuthenticationService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,
+                private router: Router) { }
 
-    apiBaseUrl = "http://localhost:3000/api/";
+    apiBaseUrl = "/api/";
     redirectUrl: string = "";
 
 
@@ -41,8 +43,9 @@ export class AuthenticationService {
 
     SignIn = (user: User) => {
         const url = `${this.apiBaseUrl}auth/login`;
-        this.http.post<string>(url, user, this.httpOptions).subscribe(data => {
-            this.saveToken(data);
+        this.http.post<AuthToken>(url, user, this.httpOptions).subscribe(data => {
+            this.saveToken(data.token);
+            this.router.navigateByUrl('');
             return true;
         },
             // Errors will call this callback instead:
@@ -61,8 +64,8 @@ export class AuthenticationService {
 
     public register(user: User) {
         const url = `${this.apiBaseUrl}auth/registration`;
-        this.http.post<string>(url, user, this.httpOptions).subscribe(data => {
-            this.saveToken(data);
+        this.http.post<AuthToken>(url, user, this.httpOptions).subscribe(data => {
+            this.saveToken(data.token);
             return true;
         },
             // Errors will call this callback instead:
@@ -80,7 +83,8 @@ export class AuthenticationService {
     }
 
     SignOut = () => {
-        window.localStorage.removeItem("loc8r-token")
+        window.localStorage.removeItem("loc8r-token");
+        window.location.reload();
     }
 
     saveToken = (token: string) => {
@@ -97,4 +101,8 @@ export class AuthenticationService {
             return false;
         }
     }
+}
+
+interface AuthToken {
+  token: string;
 }
