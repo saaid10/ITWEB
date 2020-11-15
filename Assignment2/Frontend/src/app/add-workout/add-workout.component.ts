@@ -34,6 +34,7 @@ export class AddWorkoutComponent implements OnInit {
 
   submit(): void {
     const workout = new Workout(this.exercise, this.description, this.set || 0, this.repsOrTime, '');
+    workout._id = undefined;
     this.program?.workouts.push(workout);
     this.http.put('/api/programs/' + this.programId, {program: this.program}).subscribe(
       (s) => this.router.navigateByUrl(''),
