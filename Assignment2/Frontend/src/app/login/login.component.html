@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="login">
+        <h1>login!</h1>
+        <form [formGroup]="loginFormModel" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" hintLabel="Min 5 characters">
+                <mat-label>Username</mat-label>
+                <input minlength="5" #username placeholder="John Doe" matInput formControlName="username">
+                <mat-hint align="end">{{username.value?.length || 0}}/5</mat-hint>
+            </mat-form-field>
+
+            <br>
+
+            <mat-form-field appearance="outline" hintLabel="Min 8 characters">
+                <mat-label>Password</mat-label>
+                <input matInput minlength="8" formControlName="password" #password [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-hint align="end">{{password.value?.length || 0}}/8</mat-hint>
+            </mat-form-field>
+
+            <br>
+
+            <button mat-fab>
+                <mat-icon>lock_open</mat-icon>
+            </button>
+        </form>
+
+
+        Not an user? Sign op <a routerLink="/registration">here</a>
+
+
+    </div>
+</div>

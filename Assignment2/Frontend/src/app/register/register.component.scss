@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: center;
+
+  .register {
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px darkgray solid;
+  }
+}
