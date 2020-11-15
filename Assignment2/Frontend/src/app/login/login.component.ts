@@ -12,14 +12,12 @@ import {Router} from '@angular/router';
 
 
 export class LoginComponent implements OnInit {
-  authService?: AuthenticationService;
   hide = true;
   loginFormModel: FormGroup;
 
 
-  constructor(authService: AuthenticationService,
+  constructor(private authService: AuthenticationService,
               private router: Router) {
-    this.authService = authService;
 
     this.loginFormModel = new FormGroup({
       username: new FormControl(''),
@@ -29,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     let user: User = { username: this.loginFormModel.value.username, password: this.loginFormModel.value.password }
-    this.authService?.signIn(user);
+    this.authService.SignIn(user);
   }
 
   ngOnInit(): void {
