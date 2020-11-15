@@ -1,0 +1,17 @@
+<div class="header">
+    <h1 class="">Homepage - Workout List</h1>
+    <button mat-raised-button color="primary" routerLink="/addprogram">Add Workout Program</button>
+</div>
+
+<div class="basic-container">
+    
+    <mat-card *ngFor="let workoutcard of workoutcards" class="workoutcard-container">{{workoutcard}}
+        <div></div>
+        <hr class="hr">
+            <div class="exercise-title">Exercise</div>
+            <div>
+                <button mat-raised-button color="primary">Show details</button>
+                <button mat-raised-button color="primary">Add workout to program</button>
+            </div>
+    </mat-card>
+</div>
