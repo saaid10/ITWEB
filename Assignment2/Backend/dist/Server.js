@@ -14,8 +14,10 @@ const routes_1 = __importDefault(require("./routes"));
 const Logger_1 = __importDefault(require("@shared/Logger"));
 const compression_1 = __importDefault(require("compression"));
 const db_1 = __importDefault(require("@models/db"));
+var cors = require('cors');
 const app = express_1.default();
 const { BAD_REQUEST } = http_status_codes_1.default;
+app.use(cors());
 /************************************************************************************
  *                              Set basic express settings
  ***********************************************************************************/
