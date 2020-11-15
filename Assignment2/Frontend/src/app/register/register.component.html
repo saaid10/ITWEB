@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="login">
-        <h1>login!</h1>
+    <div class="register">
+        <h1>Register new user!</h1>
         <form [formGroup]="loginFormModel" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="outline" hintLabel="Min 5 characters">
                 <mat-label>Username</mat-label>
@@ -21,13 +21,21 @@
 
             <br>
 
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput minlength="8" formControlName="confirmPassword" #confirmPassword [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <br>
+
             <button mat-fab>
-                <mat-icon>lock_open</mat-icon>
+                <mat-icon>person_add</mat-icon>
             </button>
         </form>
 
-
-        Not an user? Sign op <a routerLink="/registration">here</a>
 
 
     </div>

@@ -9,11 +9,16 @@ import { NgMaterialIconModule } from "ng-material-icon";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AddprogramComponent } from './addprogram/addprogram.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import { WorkoutComponent } from './workout/workout.component';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth-intercepter';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +26,7 @@ import {MatIconModule} from '@angular/material/icon';
     LoginComponent,
     AddprogramComponent,
     WorkoutComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,8 +39,10 @@ import {MatIconModule} from '@angular/material/icon';
     NgMaterialIconModule,
     MatCardModule,
     MatButtonModule,
+
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
