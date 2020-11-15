@@ -24,7 +24,8 @@ export class WorkoutComponent implements OnInit {
     this.router.navigateByUrl('/programs/' + id);
   }
 
-  addWorkout(program: WorkoutProgram): void {
+  addWorkout(id: string): void {
+    this.router.navigateByUrl('/addWorkout/' + id);
   }
 }
 

@@ -11,6 +11,7 @@ import WorkoutProgram from '../shared/models/WorkoutProgram';
 export class DetailsComponent implements OnInit {
   private programId: string | null = '';
   public program: WorkoutProgram | undefined;
+
   constructor(private http: HttpClient,
               private route: ActivatedRoute) { }
 

@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { DetailsComponent } from './details/details.component';
+import { AddWorkoutComponent } from './add-workout/add-workout.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { DetailsComponent } from './details/details.component';
     AddprogramComponent,
     WorkoutComponent,
     DetailsComponent,
+    AddWorkoutComponent,
   ],
   imports: [
     BrowserModule,
