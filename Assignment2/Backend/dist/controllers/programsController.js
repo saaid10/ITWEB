@@ -55,6 +55,7 @@ programsController.addNewProgram = (req, res) => __awaiter(void 0, void 0, void 
             const user = yield user_1.User.findById(req.auth.id);
             if (user === null)
                 throw new Error('User not found');
+            delete req.body.program._id; // Let db set id
             user.addWorkoutProgram(req.body.program);
             const saved = yield user.save();
             res.status(OK).send(saved);

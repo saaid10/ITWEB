@@ -35,7 +35,11 @@ const workoutProgramSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    workouts: [workoutSchema]
+    workouts: [workoutSchema],
+    isPublic: {
+        type: Boolean,
+        default: false,
+    }
 });
 workoutProgramSchema.methods.addWorkout = function (workout) {
     this.workouts.push(workout);
