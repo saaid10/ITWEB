@@ -22,7 +22,7 @@ const workoutSchema = new Schema({
 export interface IWorkoutProgram extends Document {
     name: string;
     workouts: IWorkout[];
-
+    isPublic: boolean;
     addWorkout(workout: IWorkout): void;
 }
 
@@ -31,7 +31,11 @@ const workoutProgramSchema = new Schema({
         type: String,
         required: true
     },
-    workouts: [workoutSchema]
+    workouts: [workoutSchema],
+    isPublic: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 workoutProgramSchema.methods.addWorkout = function (workout: IWorkout): void {

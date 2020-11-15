@@ -24,7 +24,12 @@ export class AddWorkoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.programId = this.route.snapshot.paramMap.get('programId');
-    this.http.get<ProgramApi>('/api/programs/' + this.programId).subscribe((s) => this.program = s.workoutProgram);
+    this.http.get<ProgramApi>('/api/programs/' + this.programId).subscribe((s) => {
+      if (s.workoutProgram.isPublic) {
+        this.router.navigateByUrl('');
+      }
+      this.program = s.workoutProgram;
+    });
   }
 
   submit(): void {
