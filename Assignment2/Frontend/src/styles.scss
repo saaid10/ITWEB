@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
+.basic-container {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.title-container {
+  margin: 32px 0px 32px 32px;
+  font-family: "Comic Sans MS";
+  font-size: 26px;
+}
+
+.header {
+  text-align: center;
+}
+
+.workoutcard-container {
+  margin-bottom: 16px;
+  margin-right: 36px;
+  padding-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.exercise-title {
+  font-size: 14px !important;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.hr {
+  margin-top: 20px;
+}
+
+.sign-in-out {
+  float: right;
+  display: flex;
+  margin-right: 32px;
+}
