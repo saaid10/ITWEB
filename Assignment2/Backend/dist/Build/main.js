@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\IKT\ITWEB\Assignment2\Frontend\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! C:\Users\Laursen\Documents\IKT\ITWEB\Assignment2\Frontend\src\main.ts */"zUnb");
 
 
 /***/ }),

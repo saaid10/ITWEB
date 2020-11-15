@@ -14,9 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Logger_1 = __importDefault(require("@shared/Logger"));
 const http_status_codes_1 = __importDefault(require("http-status-codes"));
-const { BAD_REQUEST, CONFLICT, OK, UNAUTHORIZED } = http_status_codes_1.default;
 const user_1 = require("@models/user");
 const express_validator_1 = require("express-validator");
+const { BAD_REQUEST, CONFLICT, OK, UNAUTHORIZED } = http_status_codes_1.default;
 class responseToken {
     constructor(token) {
         this.token = token;

@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const authController_1 = __importDefault(require("@controllers/authController"));
-const router = express_1.Router();
 const express_validator_1 = require("express-validator");
+const router = express_1.Router();
 const registrationChecker = [
     express_validator_1.check('username')
         .isLength({ min: 1 })
