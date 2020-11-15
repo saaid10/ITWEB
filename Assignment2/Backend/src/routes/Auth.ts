@@ -1,8 +1,10 @@
 import {Router} from 'express';
 import authController from '@controllers/authController';
+import { check } from 'express-validator';
+
+
 const router = Router();
 
-import { check } from 'express-validator';
 
 const registrationChecker = [
     check('username')

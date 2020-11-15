@@ -1,11 +1,10 @@
 import {Request, Response} from 'express';
 import logger from "@shared/Logger";
 import StatusCodes from "http-status-codes";
-
-const {BAD_REQUEST, CONFLICT, OK, UNAUTHORIZED} = StatusCodes
-
 import {IUser, IWorkout, IWorkoutProgram, Workout, WorkoutProgram, User} from "@models/user";
 import {Result, validationResult} from "express-validator";
+
+const {BAD_REQUEST, CONFLICT, OK, UNAUTHORIZED} = StatusCodes
 
 
 class responseToken {
