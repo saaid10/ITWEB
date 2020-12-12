@@ -11,7 +11,7 @@ export const pwdSaltRounds = 12;
 // IRequest object for express routes
 export interface IRequest extends Request {
     body: {
-        user: IUser;
+        username: string;
         email: string;
         password: string;
     }

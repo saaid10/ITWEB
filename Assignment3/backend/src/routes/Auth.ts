@@ -1,28 +1,22 @@
-import {Response, Router} from 'express';
-import StatusCodes from 'http-status-codes';
-
-import {IRequest} from '@shared/constants';
+import {Router} from 'express';
+import {loginChecker, registrationChecker} from "./middleware";
+import {AuthController} from "@controllers/AuthController";
 
 const router = Router();
-const {OK} = StatusCodes;
 
 
 /******************************************************************************
  *                      Login User - "POST /api/auth/login"
  ******************************************************************************/
 
-router.post('/login', (req: IRequest, res: Response) => {
-    res.status(OK);
-});
+router.post('/login', loginChecker, AuthController.login);
 
 
 /******************************************************************************
  *                      Registration - "GET /api/auth/registration"
  ******************************************************************************/
 
-router.get('/registration', (req: IRequest, res: Response) => {
-    res.status(OK);
-});
+router.get('/registration', registrationChecker, AuthController.registration);
 
 
 /******************************************************************************

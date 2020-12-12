@@ -9,7 +9,7 @@ export interface IWorkoutProgram extends Document {
     isPublic: boolean;
 }
 
-export interface IUser extends Document {
+interface IUser extends Document {
     username: string;
     password: string;
     workoutPrograms: IWorkoutProgram[];
@@ -54,5 +54,5 @@ userSchema.methods.generateJwt = function (): string {
 
 // export default mongoose.model<IUser>('User', userSchema);
 const User = mongoose.model<IUser>("User", userSchema);
-export {User}
+export {User, IUser}
 
