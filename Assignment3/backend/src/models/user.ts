@@ -12,6 +12,8 @@ export interface IUser extends Document {
 
     validatePassword(password: string): boolean;
 
+    addHighScore(highscore: IHighscore): void;
+
     generateJwt(): string;
 }
 
@@ -46,6 +48,10 @@ userSchema.methods.setPassword = function (password: string): void {
 
 userSchema.methods.validatePassword = function (password: string): boolean {
     return bcrypt.compareSync(password, this.password);
+}
+
+userSchema.methods.addHighScore = function (highscore: IHighscore) : void {
+    this.highscore.push(highscore);
 }
 
 userSchema.methods.generateJwt = function (): string {
