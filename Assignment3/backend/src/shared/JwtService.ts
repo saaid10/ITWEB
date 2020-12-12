@@ -22,6 +22,7 @@ export class JwtService {
 
 
     constructor() {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         this.secret = (process.env.JWT_SECRET || randomString.generate(100));
         this.options = {expiresIn: cookieProps.options.maxAge.toString()};
     }
@@ -32,7 +33,7 @@ export class JwtService {
      *
      * @param data
      */
-    public getJwt(data: IClientData): Promise<string> {
+    public getJwt(data: IClientData): Promise<string | undefined> {
         return new Promise((resolve, reject) => {
             jsonwebtoken.sign(data, this.secret, this.options, (err, token) => {
                 err ? reject(err) : resolve(token);

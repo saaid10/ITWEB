@@ -1,6 +1,6 @@
 import cookieParser from 'cookie-parser';
-import morgan from 'morgan';
 import path from 'path';
+import morgan from 'morgan';
 import helmet from 'helmet';
 import StatusCodes from 'http-status-codes';
 import express, { NextFunction, Request, Response } from 'express';
@@ -26,7 +26,9 @@ app.use(cookieParser(cookieProps.secret));
 
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {
-    app.use(morgan("dev"));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    app.use(morgan('dev'));
 }
 
 // Security
