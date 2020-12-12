@@ -17,5 +17,5 @@ git add .
 git add -f Assignment3/backend/dist/
 git commit -m "Heroku deploy"
 git push heroku master
-heroku ps:scale assignment3=1
+heroku ps:scale web=1
 read -p "Press Key"
