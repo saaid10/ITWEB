@@ -7,25 +7,13 @@ const saltRounds = 10;
 export interface IUser extends Document {
     username: string;
     password: string;
-
+    highscore: IHighscore[];
     setPassword(password: string): void;
 
     validatePassword(password: string): boolean;
 
     generateJwt(): string;
 }
-
-const userSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-});
 
 export interface IHighscore extends Document {
     score: number;
@@ -37,6 +25,19 @@ const highscoreSchema = new Schema ({
     score: Number,
     level: String,
     time: Date
+});
+
+const userSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    highscore: [highscoreSchema]
 });
 
 userSchema.methods.setPassword = function (password: string): void {
