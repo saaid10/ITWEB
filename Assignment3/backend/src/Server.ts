@@ -26,7 +26,7 @@ app.use(cookieParser(cookieProps.secret));
 app.use(cors());
 
 // Show routes called in console during development
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV) {
     app.use(morgan('dev'));
 }
 
@@ -52,12 +52,10 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
  *                              Serve front-end content
  ***********************************************************************************/
 
-const viewsDir = path.join(__dirname, 'Build');
-app.set('views', viewsDir);
-const staticDir = path.join(__dirname, 'Build');
-app.use(express.static(staticDir));
+const buildDir = path.join(__dirname, 'Build');
+app.use(express.static(buildDir));
 app.get('*', (req: Request, res: Response) => {
-    res.sendFile('index.html', {root: viewsDir});
+    res.sendFile('index.html', {root: buildDir});
 });
 
 
