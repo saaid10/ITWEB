@@ -4,15 +4,9 @@ import * as bcrypt from 'bcrypt';
 
 const saltRounds = 10;
 
-export interface IWorkoutProgram extends Document {
-    name: string;
-    isPublic: boolean;
-}
-
 export interface IUser extends Document {
     username: string;
     password: string;
-    workoutPrograms: IWorkoutProgram[];
 
     setPassword(password: string): void;
 
@@ -31,6 +25,18 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+});
+
+export interface IHighscore extends Document {
+    score: number;
+    level: String,
+    time: Date
+}
+
+const highscoreSchema = new Schema ({
+    score: Number,
+    level: String,
+    time: Date
 });
 
 userSchema.methods.setPassword = function (password: string): void {
