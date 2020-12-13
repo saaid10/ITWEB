@@ -13,6 +13,7 @@ require("express-async-errors");
 const routes_1 = __importDefault(require("./routes"));
 const Logger_1 = __importDefault(require("@shared/Logger"));
 const cors_1 = __importDefault(require("cors"));
+const db_1 = __importDefault(require("@models/db"));
 const app = express_1.default();
 const { BAD_REQUEST } = http_status_codes_1.default;
 /************************************************************************************
@@ -22,6 +23,7 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(cookie_parser_1.default());
 app.use(cors_1.default());
+new db_1.default();
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan_1.default('dev'));
