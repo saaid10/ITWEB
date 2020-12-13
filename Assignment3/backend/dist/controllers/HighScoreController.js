@@ -13,7 +13,7 @@ const user_1 = require("@models/user");
 const date_fns_1 = require("date-fns");
 const http_status_codes_1 = require("http-status-codes");
 const _index_1 = require("@index");
-const { OK, UNAUTHORIZED, BAD_REQUEST, CONFLICT } = http_status_codes_1.StatusCodes;
+const { OK, BAD_REQUEST } = http_status_codes_1.StatusCodes;
 class HighScoreController {
 }
 exports.default = HighScoreController;

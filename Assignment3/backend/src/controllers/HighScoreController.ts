@@ -1,11 +1,11 @@
-import { IHighscore, IUser, User } from "@models/user";
+import { IHighscore, User } from "@models/user";
 import { IRequest } from "@shared/constants";
 import { endOfDay, startOfDay } from "date-fns";
 import { Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { wsServer } from '@index';
 
-const {OK, UNAUTHORIZED, BAD_REQUEST, CONFLICT} = StatusCodes;
+const {OK, BAD_REQUEST} = StatusCodes;
 
 export default class HighScoreController {
 	static NewHighScore = async (req: IRequest, res: Response) => {
