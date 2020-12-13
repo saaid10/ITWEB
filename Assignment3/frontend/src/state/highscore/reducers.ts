@@ -1,19 +1,18 @@
 import * as actions from "./actions";
 import { Action } from "redux";
 import { isType } from 'typescript-fsa';
-import { highScore, highScoreReducerContent } from "./types";
+import { highScoreReducerContent } from "./types";
 
 
 export const initialHighScore: highScoreReducerContent = {
-    latestGameScore: undefined,
     highScores: []
 };
 
 
 export function highScoreReducer(state: typeof initialHighScore = initialHighScore, action: Action): typeof initialHighScore {
-    if (isType(action, actions.SetLatestHighSCoreAction)) {
+    if (isType(action, actions.AddNewScoreAction)) {
         return {
-            ...state, latestGameScore: action.payload.highScore
+            ...state, highScores: [...state.highScores, action.payload.highScore]
         }
     }
 

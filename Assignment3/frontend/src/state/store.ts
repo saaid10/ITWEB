@@ -11,11 +11,9 @@ const reducerArray = {
     highScoreReducer,
 }
 
-
 const store = combineReducers({
     ...reducerArray
 })
-
 
 export type coreAppState = {
     [K in keyof typeof reducerArray]: ReturnType<typeof reducerArray[K]>;

@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import store from "../..";
-import { SetLatestHighSCoreAction, GetHighScoresAction } from "./actions";
+import { AccessToken } from "../../constants";
+import { AddNewScoreAction, GetHighScoresAction } from "./actions";
 import { highScore } from "./types";
 
 export const GetHighSCoresOperation = async () => {
@@ -23,7 +24,14 @@ export const GetHighSCoresOperation = async () => {
     }));
 }
 
-export const SetLatestHighSCoreOperation = (highScore: highScore) => {
-    return (dispatch: Dispatch) => dispatch(SetLatestHighSCoreAction({ highScore }));
+export const AddNewHighScoreOperation = async (highScore: highScore) => {
+    await fetch(`/api//highscore`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + window.localStorage.getItem(AccessToken),
+        },
+        body: JSON.stringify(highScore),
+    })
+    return (dispatch: Dispatch) => dispatch(AddNewScoreAction({ highScore }));
 }
-

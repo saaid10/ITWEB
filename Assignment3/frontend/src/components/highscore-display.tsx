@@ -18,11 +18,11 @@ export function HighscoreDisplay() {
 
     const highscores = useSelector((state: AppState) => state.highScoreReducer.highScores)
 
-    const getHighSCores = async() => {
+    const getHighScores = async () => {
         (await GetHighSCoresOperation())(dispatch);
     }
     useEffect(() => {
-        getHighSCores();
+        getHighScores();
     }, [])
     const nBack: number = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.nBack);
 
@@ -36,7 +36,7 @@ export function HighscoreDisplay() {
                             <TableCell className="item">Level</TableCell>
                             <TableCell className="item">Score</TableCell>
                             <TableCell className="item">Time</TableCell>
-                        </TableRow>
+                        </TableRow>0
                     </TableHead>
                     <TableBody>
                         {highscores.sort((a, b) => (a.score > b.score) ? -1 : 1).map((highscore) => (
