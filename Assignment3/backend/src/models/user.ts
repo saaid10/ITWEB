@@ -4,22 +4,30 @@ import * as bcrypt from 'bcrypt';
 
 const saltRounds = 10;
 
-export interface IWorkoutProgram extends Document {
-    name: string;
-    isPublic: boolean;
-}
-
-interface IUser extends Document {
+export interface IUser extends Document {
     username: string;
     password: string;
-    workoutPrograms: IWorkoutProgram[];
-
+    highscore: IHighscore[];
     setPassword(password: string): void;
 
     validatePassword(password: string): boolean;
 
+    addHighScore(highscore: IHighscore): void;
+
     generateJwt(): string;
 }
+
+export interface IHighscore extends Document {
+    score: number;
+    level: String,
+    time: Date
+}
+
+const highscoreSchema = new Schema ({
+    score: Number,
+    level: String,
+    time: Date
+});
 
 const userSchema = new Schema({
     username: {
@@ -31,6 +39,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    highscore: [highscoreSchema]
 });
 
 userSchema.methods.setPassword = function (password: string): void {
@@ -39,6 +48,11 @@ userSchema.methods.setPassword = function (password: string): void {
 
 userSchema.methods.validatePassword = function (password: string): boolean {
     return bcrypt.compareSync(password, this.password);
+}
+
+userSchema.methods.addHighScore = function (highscore: IHighscore) : void {
+    highscore.time = new Date();
+    this.highscore.push(highscore);
 }
 
 userSchema.methods.generateJwt = function (): string {
@@ -54,5 +68,5 @@ userSchema.methods.generateJwt = function (): string {
 
 // export default mongoose.model<IUser>('User', userSchema);
 const User = mongoose.model<IUser>("User", userSchema);
-export {User, IUser}
+export {User}
 

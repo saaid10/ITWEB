@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import { IUser } from '@entities/User';
+import { IHighscore } from '@models/user';
 
 // Strings
 export const paramMissingError = 'One or more of the required parameters was missing.';
@@ -14,6 +15,7 @@ export interface IRequest extends Request {
         username: string;
         email: string;
         password: string;
+        highscore: IHighscore;
     }
     auth?: AuthTokenInfo;
 }
