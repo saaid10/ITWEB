@@ -13,6 +13,7 @@ import Header from './components/layout/Header'
 
 import { AppContext } from './context/context'
 import PrivateRoute from './components/auth/private-route';
+import {HighscoreDisplay} from "./components/highscore-display";
 
 function App() {
   let HOST = window.location.origin.replace(/^http/, 'ws')
@@ -45,6 +46,7 @@ function App() {
           <PrivateRoute exact path="/" component={Game} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/highscore" component={HighscoreDisplay} />
         </Switch>
       </BrowserRouter>
     </div>
