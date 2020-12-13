@@ -26,7 +26,7 @@ const bcrypt = __importStar(require("bcrypt"));
 const saltRounds = 10;
 const highscoreSchema = new mongoose_1.Schema({
     score: Number,
-    level: String,
+    level: Number,
     time: Date
 });
 const userSchema = new mongoose_1.Schema({
