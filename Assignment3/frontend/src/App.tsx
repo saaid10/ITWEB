@@ -3,8 +3,8 @@ import {DualNBack} from './components/dual-n-back';
 import "./App.scss";
 
 function App() {
-
-    const ws = new WebSocket('ws://localhost:4000');
+    let HOST = window.location.origin.replace(/^http/, 'ws')
+    const ws = new WebSocket(process.env.REACT_APP_BACKEND_WS_URL || HOST);
 
     useEffect(() => {
         ws.onopen = () => {
