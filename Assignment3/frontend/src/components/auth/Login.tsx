@@ -4,6 +4,8 @@ import {TextField} from '@material-ui/core'
 import { useDispatch } from 'react-redux';
 import { Route, useHistory } from 'react-router-dom';
 import { SetIsLoggedInOperation } from '../../state/auth/operations';
+import './Login.scss';
+import Button from '@material-ui/core/Button';
 
 function Login() {
     const dispatch = useDispatch();
@@ -36,9 +38,9 @@ function Login() {
         <div>
             <h1>Log In</h1>
             <p>Enter username and password:</p>
-            <TextField label="User Name" type='text' value={userName} onChange={(e) => setUserName(e.target.value)} />
-            <TextField label="Password" type='password' value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
-            <button onClick={handleSubmit}>Button</button>
+            <div className="input-box"><TextField label="User Name" type='text' value={userName} onChange={(e) => setUserName(e.target.value)} /></div>
+            <div className="input-box"><TextField label="Password" type='password' value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
+            <div className="login-button"><Button variant="contained" onClick={handleSubmit}>login</Button></div></div>
         </div>
     )
 }
