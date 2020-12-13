@@ -38,7 +38,7 @@ function Login() {
         <div>
             <h1 className="input-box">Log In</h1>
             <p className="input-box">Enter username and password:</p>
-            <div className="input-box"><TextField label="User Name" type='text' value={userName} onChange={(e) => setUserName(e.target.value)} /></div>
+            <div className="input-box"><TextField color="primary" label="User Name" type='text' value={userName} onChange={(e) => setUserName(e.target.value)} /></div>
             <div className="input-box"><TextField label="Password" type='password' value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
             <div className="login-button"><Button variant="contained" onClick={handleSubmit}>login</Button></div></div>
         </div>
