@@ -9,7 +9,7 @@ export default class DatabaseSetup {
     }
 
     private connectToDB() {
-        const dbURI = process.env.MONGODB_URI || '';
+        const dbURI = process.env.MONGODB_URI2 || '';
         mongoose.connect(dbURI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,

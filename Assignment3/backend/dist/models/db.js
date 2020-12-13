@@ -10,7 +10,7 @@ class DatabaseSetup {
         this.connectToDB();
     }
     connectToDB() {
-        const dbURI = process.env.MONGODB_URI || '';
+        const dbURI = process.env.MONGODB_URI2 || '';
         mongoose_1.default.connect(dbURI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,

@@ -10,7 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = require("@models/user");
+const date_fns_1 = require("date-fns");
 const http_status_codes_1 = require("http-status-codes");
+const src_1 = require("src");
 const { OK, UNAUTHORIZED, BAD_REQUEST, CONFLICT } = http_status_codes_1.StatusCodes;
 class HighScoreController {
 }
@@ -24,11 +26,70 @@ HighScoreController.NewHighScore = (req, res) => __awaiter(void 0, void 0, void 
                 throw new Error('User not found');
             user.addHighScore(req.body.highscore);
             const saved = yield user.save();
+            src_1.wsServer.clients.forEach((client) => client.send(JSON.stringify(req.body.highscore)));
             res.status(OK).send(saved);
         }
         catch (e) {
             res.status(BAD_REQUEST)
-                .json({ "message": `Something whent wrong - ${e}` });
+                .json({
+                "message": `Something whent wrong - ${e}`
+            });
+            return;
+        }
+    }
+    else {
+        res.sendStatus(BAD_REQUEST);
+    }
+});
+HighScoreController.GetHighScore = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (req.query.level) {
+        try {
+            const highscores = yield user_1.User.aggregate([{
+                    $match: {
+                        $and: [{
+                                'highscore.level': {
+                                    $eq: req.query.level
+                                }
+                            },
+                            {
+                                'highscore.time': {
+                                    $gte: date_fns_1.startOfDay(new Date()),
+                                    $lte: date_fns_1.endOfDay(new Date())
+                                }
+                            }
+                        ]
+                    }
+                }, {
+                    $unwind: '$highscore'
+                }, {
+                    $match: {
+                        $and: [{
+                                'highscore.level': {
+                                    $eq: req.query.level
+                                }
+                            },
+                            {
+                                'highscore.time': {
+                                    $gt: date_fns_1.startOfDay(new Date()),
+                                    $lt: date_fns_1.endOfDay(new Date())
+                                }
+                            }
+                        ]
+                    }
+                }, {
+                    $project: {
+                        score: '$highscore.score',
+                        level: '$highscore.level',
+                        time: '$highscore.time'
+                    }
+                }]);
+            res.status(OK).send(highscores);
+        }
+        catch (e) {
+            res.status(BAD_REQUEST)
+                .json({
+                "message": `Something whent wrong - ${e}`
+            });
             return;
         }
     }

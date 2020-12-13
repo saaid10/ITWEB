@@ -48,6 +48,7 @@ userSchema.methods.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
 userSchema.methods.addHighScore = function (highscore) {
+    highscore.time = new Date();
     this.highscore.push(highscore);
 };
 userSchema.methods.generateJwt = function () {
