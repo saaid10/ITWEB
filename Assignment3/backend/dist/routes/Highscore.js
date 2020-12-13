@@ -3,13 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Highscore_1 = __importDefault(require("./Highscore"));
+const HighScoreController_1 = __importDefault(require("@controllers/HighScoreController"));
 const express_1 = require("express");
-const Auth_1 = __importDefault(require("./Auth"));
-// Init router and path
+const middleware_1 = require("./middleware");
 const router = express_1.Router();
-// Add sub-routes
-router.use('/auth', Auth_1.default);
-router.use('/highscore', Highscore_1.default);
-// Export the base-router
+router
+    .route('/')
+    .post(middleware_1.authRequired, HighScoreController_1.default.NewHighScore);
 exports.default = router;
