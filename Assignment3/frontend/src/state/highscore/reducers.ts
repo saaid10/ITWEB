@@ -10,7 +10,7 @@ export const initialHighScore: highScoreReducerContent = {
 };
 
 
-export function gameSettingsReducer(state: typeof initialHighScore = initialHighScore, action: Action): typeof initialHighScore {
+export function highScoreReducer(state: typeof initialHighScore = initialHighScore, action: Action): typeof initialHighScore {
     if (isType(action, actions.SetLatestHighSCoreAction)) {
         return {
             ...state, latestGameScore: action.payload.highScore
