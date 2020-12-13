@@ -1,8 +1,7 @@
 import * as actions from "./actions";
 import { Action } from "redux";
 import { isType } from 'typescript-fsa';
-import { GameRounds } from "./types"
-import * as constants from "./constants";
+import { GameRounds } from "./types";
 
 
 export const initialGameState: GameRounds = {
@@ -17,6 +16,11 @@ export function gameRoundsReducer(state: typeof initialGameState = initialGameSt
         }
     }
 
+    if (isType(action, actions.ClearGameRoundsAction)) {
+        return {
+            ...state, rounds: []
+        }
+    }
 
 
     return state;

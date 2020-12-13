@@ -1,3 +1,4 @@
 
 
 export const ADD_GAME_ROUNDS = 'ADD_GAME_ROUNDS';
+export const CLEAR_GAME_ROUNDS = 'CLEAR_GAME_ROUNDS';
