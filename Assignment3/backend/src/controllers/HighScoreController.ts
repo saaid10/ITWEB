@@ -3,7 +3,7 @@ import { IRequest } from "@shared/constants";
 import { endOfDay, startOfDay } from "date-fns";
 import { Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { wsServer } from "src";
+import { wsServer } from '@index';
 
 const {OK, UNAUTHORIZED, BAD_REQUEST, CONFLICT} = StatusCodes;
 
@@ -39,7 +39,7 @@ export default class HighScoreController {
 					$match: {
 						$and: [{
 								'highscore.level': {
-									$eq: req.query.level
+									$eq: Number(req.query.level)
 								}
 							},
 							{
@@ -56,7 +56,7 @@ export default class HighScoreController {
 					$match: {
 						$and: [{
 								'highscore.level': {
-									$eq: req.query.level
+									$eq: Number(req.query.level)
 								}
 							},
 							{

@@ -9,7 +9,7 @@ const port = Number(process.env.PORT || 4000);
 const httpServer = app.listen(port, () => {
     logger.info('Express server started on port: ' + port);
 });
-const wsServer = new Server({server: httpServer});
+const wsServer: Server = new Server({server: httpServer});
 
 wsServer.on('connection',
     websocket => {

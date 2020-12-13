@@ -11,7 +11,7 @@ router.post('/login', middleware_1.loginChecker, AuthController_1.AuthController
 /******************************************************************************
  *                      Registration - "GET /api/auth/registration"
  ******************************************************************************/
-router.get('/registration', middleware_1.registrationChecker, AuthController_1.AuthController.registration);
+router.post('/registration', middleware_1.registrationChecker, AuthController_1.AuthController.registration);
 /******************************************************************************
  *                                 Export Router
  ******************************************************************************/
