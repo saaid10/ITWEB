@@ -8,7 +8,7 @@ import Login from './Login';
 import {useHistory} from "react-router-dom";
 
 function PrivateRoute(props: RouteProps){
-    const isLoggedIn = false;
+    const isLoggedIn = true;
     // const isLoggedIn =  useSelector((state: AppState) => state.gameRoundsReducer.rounds)  
     const history = useHistory();
 
