@@ -51,6 +51,7 @@ userSchema.methods.validatePassword = function (password: string): boolean {
 }
 
 userSchema.methods.addHighScore = function (highscore: IHighscore) : void {
+    highscore.time = new Date();
     this.highscore.push(highscore);
 }
 
