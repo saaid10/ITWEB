@@ -16,7 +16,7 @@ router.post('/login', loginChecker, AuthController.login);
  *                      Registration - "GET /api/auth/registration"
  ******************************************************************************/
 
-router.get('/registration', registrationChecker, AuthController.registration);
+router.post('/registration', registrationChecker, AuthController.registration);
 
 
 /******************************************************************************
