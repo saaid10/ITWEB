@@ -24,7 +24,8 @@
     "@shared": "dist/shared",
     "@server": "dist/Server",
     "@controllers": "dist/controllers",
-    "@models": "dist/models"
+    "@models": "dist/models",
+    "@index": "dist/index"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
