@@ -48,7 +48,7 @@ HighScoreController.GetHighScore = (req, res) => __awaiter(void 0, void 0, void 
                     $match: {
                         $and: [{
                                 'highscore.level': {
-                                    $eq: req.query.level
+                                    $eq: Number(req.query.level)
                                 }
                             },
                             {
@@ -65,7 +65,7 @@ HighScoreController.GetHighScore = (req, res) => __awaiter(void 0, void 0, void 
                     $match: {
                         $and: [{
                                 'highscore.level': {
-                                    $eq: req.query.level
+                                    $eq: Number(req.query.level)
                                 }
                             },
                             {
