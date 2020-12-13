@@ -7,8 +7,9 @@ import {
     TableHead,
     TableRow
 } from "@material-ui/core";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GetHighSCoresOperation } from "../state/highscore/operations";
 import { highScore } from "../state/highscore/types";
 import { AppState } from "../state/store";
 
@@ -24,13 +25,19 @@ const useStyles = makeStyles({
 });
 
 export function HighscoreDisplay() {
+    const dispatch = useDispatch();
+
+    const highscores = useSelector((state: AppState) => state.highScoreReducer.highScores)
+
+    const getHighSCores = async() => {
+        (await GetHighSCoresOperation())(dispatch);
+    }
+    useEffect(() => {
+        getHighSCores();
+    }, [])
     const classes = useStyles();
     const nBack: number = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.nBack);
-    const highscores: highScore[] = [
-        { level: 1, score: 300, time: new Date() },
-        { level: 2, score: 400, time: new Date() },
-        { level: 3, score: 500, time: new Date() }
-    ]
+
 
     return (
         <div className={classes.tableContainer}>
