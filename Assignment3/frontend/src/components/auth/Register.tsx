@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import { useHistory } from 'react-router-dom';
 import { SetIsLoggedInOperation } from '../../state/auth/operations';
+import './Login.scss';
+import Button from '@material-ui/core/Button';
 
 function Register() {
     const dispatch = useDispatch();
@@ -33,12 +35,12 @@ function Register() {
 
     return (
         <div>
-            <h1>Register</h1>
-            <p>Enter username and password:</p>
-            <TextField label="User Name" type='text' value={userName} onChange={(e) => setUserName(e.target.value)} />
-            <TextField label="Password" type='password' value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
-            <TextField  label="Confirm Password" type='password' value={userConfirmPassword} onChange={(e) => setUserConfirmPassword(e.target.value)} />
-            <button onClick={handleSubmit}>Button</button>
+            <h1 className="input-box">Register</h1>
+            <p className="input-box">Enter username and password:</p>
+            <div className="input-box"><TextField label="User Name" type='text' value={userName} onChange={(e) => setUserName(e.target.value)} /></div>
+            <div className="input-box"><TextField label="Password" type='password' value={userPassword} onChange={(e) => setUserPassword(e.target.value)} /></div>
+            <div className="input-box"><TextField label="Confirm Password" type='password' value={userConfirmPassword} onChange={(e) => setUserConfirmPassword(e.target.value)} /></div>
+            <div className="login-button"><Button variant="contained" onClick={handleSubmit}>Submit</Button></div>
         </div>
     )
 }
