@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useAppContext } from '../../context/context'
 import {TextField} from '@material-ui/core'
 
 import { useDispatch } from 'react-redux';
@@ -24,7 +23,8 @@ function Login() {
                         body: JSON.stringify({username: userName, password: userPassword})});
 
         console.log(response.status)
-        if (response.status == 200)
+
+        if (response.status === 200)
         {
             console.log('user auth - 200 ok');
             SetIsLoggedInOperation(true)(dispatch);

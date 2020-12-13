@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
@@ -12,6 +13,11 @@ function AuthOptions() {
     const logout = () => {
         SetIsLoggedInOperation(false)(dispatch);
     }
+=======
+import {useHistory} from "react-router-dom";
+
+function AuthOptions() {
+>>>>>>> master
 
     // Use history to change url
     const history = useHistory();
