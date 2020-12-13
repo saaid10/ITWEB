@@ -25,7 +25,7 @@ function Register() {
             body: JSON.stringify({username: userName, password: userPassword, confirmPassword: userConfirmPassword})});
 
 
-        if (response.status == 200)
+        if (response.status === 200)
         {
             console.log('Registration auth - 200 ok');
             SetIsLoggedInOperation(true)(dispatch);

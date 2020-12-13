@@ -7,6 +7,5 @@ export type highScore = {
 }
 
 export type highScoreReducerContent = {
-    latestGameScore?: highScore,
     highScores: highScore[],
 }
