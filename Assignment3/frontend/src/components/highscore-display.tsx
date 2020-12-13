@@ -8,8 +8,9 @@ import {
     TableRow
 } from "@material-ui/core";
 import React from "react";
-import {useSelector} from "react-redux";
-import {AppState} from "../state/store";
+import { useSelector } from "react-redux";
+import { highScore } from "../state/highscore/types";
+import { AppState } from "../state/store";
 
 const useStyles = makeStyles({
     table: {
@@ -22,20 +23,14 @@ const useStyles = makeStyles({
     }
 });
 
-interface Highscore {
-    level: string,
-    time: string,
-    score: number
-}
-
 export function HighscoreDisplay() {
     const classes = useStyles();
     const nBack: number = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.nBack);
-    const highscores: Highscore[] = [{level: "D1B", score: 300, time: "123"}, {
-        level: "D1B",
-        score: 400,
-        time: "123"
-    }, {level: "D1B", score: 500, time: "123"}]
+    const highscores: highScore[] = [
+        { level: 1, score: 300, time: new Date() },
+        { level: 2, score: 400, time: new Date() },
+        { level: 3, score: 500, time: new Date() }
+    ]
 
     return (
         <div className={classes.tableContainer}>

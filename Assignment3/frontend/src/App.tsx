@@ -1,19 +1,14 @@
 
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './style/style.css';
 import "./App.scss";
-
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
 import Game from './components/pages/Game'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Header from './components/layout/Header'
-
-import { AppContext } from './context/context'
 import PrivateRoute from './components/auth/private-route';
-import {HighscoreDisplay} from "./components/highscore-display";
+import { HighscoreDisplay } from "./components/highscore-display";
 
 function App() {
   let HOST = window.location.origin.replace(/^http/, 'ws')

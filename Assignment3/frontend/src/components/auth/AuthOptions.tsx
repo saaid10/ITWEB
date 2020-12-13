@@ -1,11 +1,6 @@
-import React, { useContext, useState } from 'react'
 import {useHistory} from "react-router-dom";
 
-import { AppContext } from '../../context/context'
-import { useAppContext } from '../../context/context'
-
 function AuthOptions() {
-    const isAuthenticated = useAppContext();
 
     // Use history to change url
     const history = useHistory();
