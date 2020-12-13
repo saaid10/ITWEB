@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
 import {TextField} from '@material-ui/core'
 
+import { useDispatch } from 'react-redux';
+import { Route, useHistory } from 'react-router-dom';
+import { SetIsLoggedInOperation } from '../../state/auth/operations';
+
 function Login() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
 
@@ -16,9 +23,13 @@ function Login() {
                         body: JSON.stringify({username: userName, password: userPassword})});
 
         console.log(response.status)
+
         if (response.status === 200)
+        {
             console.log('user auth - 200 ok');
-            //userHasAuthenticated(true);
+            SetIsLoggedInOperation(true)(dispatch);
+            history.push('/')
+        }
     }
 
     return (
