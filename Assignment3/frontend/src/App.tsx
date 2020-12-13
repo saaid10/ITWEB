@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import './style.css';
+import './style/style.css';
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -11,22 +11,20 @@ import Register from './components/auth/Register'
 import Header from './components/layout/Header'
 
 import { AppContext } from './context/context'
-
+import PrivateRoute from './components/auth/private-route';
 
 function App() {
 
-  const [isAuthenticated, userHasAuthenticated] = useState(false);
+
 
   return (
     <BrowserRouter>
-      <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
           <Header />
           <Switch>
-            <Route exact path="/" component={Game} />
+            <PrivateRoute exact path="/" component={Game} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
           </Switch>
-      </AppContext.Provider>
     </BrowserRouter>
   );
 }
