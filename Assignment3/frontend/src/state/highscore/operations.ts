@@ -12,6 +12,9 @@ export const GetHighSCoresOperation = async () => {
     }).then(response => response.json())
         .then(data => data as highScore[])
         .then(highScores => {
+            highScores.forEach(highscore => {
+                highscore.time = new Date(highscore.time);
+            })
             return highScores;
         });
 
