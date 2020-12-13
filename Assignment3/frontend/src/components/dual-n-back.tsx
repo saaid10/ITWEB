@@ -1,20 +1,21 @@
 import { Button, Slider } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { secondsBetweenLetters } from '../constants';
 import { AddGameRoundOperation, ClearGameRoundsOperation } from '../state/game-round/operations';
-import { SetNBackOperation } from '../state/game/operations';
+import { ClearScoreOperation, SetIsRunningOperation, SetNBackOperation } from '../state/game/operations';
 import { AppState } from '../state/store';
 import { getRoundsLeft } from '../utils/rounds';
 import { DualBackGrid } from './dual-back-grid';
 
 
 export function DualNBack() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     useSelector((state: AppState) => state.gameRoundsReducer.rounds);   //Only here to update EffectHook
-    const nBack: number = useSelector((state: AppState) => state.gameSettingsReducer.nBack);
-
-    const [running, setRunning] = useState(false);
+    const isRunning = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.isRunning);
+    const nBack: number = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.nBack);
+    const numberOfCorrectLocation: number = useSelector((state: AppState) => state.gameSettingsReducer.currentGameScore.correctSameLocation);
+    const numberOfCorrectLetter: number = useSelector((state: AppState) => state.gameSettingsReducer.currentGameScore.correctSameLetter);
 
     const setNBack = (e: React.ChangeEvent<{}>, n: number | number[]) => {
         if (typeof n === "number") {
@@ -23,25 +24,29 @@ export function DualNBack() {
     }
 
     const newGame = () => {
-        setRunning(true);
+        ClearScoreOperation()(dispatch);
+        SetIsRunningOperation(true)(dispatch);
     }
 
 
     const clearGame = () => {
-        setRunning(false);
+        SetIsRunningOperation(false)(dispatch);
         ClearGameRoundsOperation()(dispatch);
     }
 
     useEffect(() => {
-        if (getRoundsLeft() === 0)
-            clearGame();
+        if (getRoundsLeft() === 0) {
+            setTimeout(() => {
+                clearGame();
+            }, secondsBetweenLetters * 1000)
+        }
 
         const interval = setInterval(() => {
-            if (running)
+            if (isRunning)
                 AddGameRoundOperation()(dispatch);
         }, secondsBetweenLetters * 1000);
 
-        if (!running)
+        if (!isRunning)
             clearInterval(interval);
         return () => clearInterval(interval);
     });
@@ -62,20 +67,23 @@ export function DualNBack() {
                             onChange={setNBack}
                             aria-labelledby="discrete-slider"
                             valueLabelDisplay="auto"
-                            disabled={running}
+                            disabled={isRunning}
                         />
                     </div>
                 </div>
                 <Button
                     variant="contained"
-                    onClick={running ? clearGame : newGame}
-                    color={running ? "secondary" : "default"}
+                    onClick={isRunning ? clearGame : newGame}
+                    color={isRunning ? "secondary" : "default"}
                 >
-                    {running ? "Stop Game" : "New Game"}
+                    {isRunning ? "Stop Game" : "New Game"}
                 </Button>
 
-                <p hidden={!running}>Rounds left: {getRoundsLeft()}</p>
-
+                <div>
+                    <p hidden={!isRunning}>Rounds left: {getRoundsLeft()}</p>
+                    <p hidden={isRunning}>Correct by letter: {numberOfCorrectLocation}</p>
+                    <p hidden={isRunning}>Correct by location: {numberOfCorrectLetter}</p>
+                </div>
             </div>
             <br />
 

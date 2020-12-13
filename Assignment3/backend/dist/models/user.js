@@ -24,6 +24,11 @@ const mongoose_1 = __importStar(require("mongoose"));
 const jwt = __importStar(require("jsonwebtoken"));
 const bcrypt = __importStar(require("bcrypt"));
 const saltRounds = 10;
+const highscoreSchema = new mongoose_1.Schema({
+    score: Number,
+    level: String,
+    time: Date
+});
 const userSchema = new mongoose_1.Schema({
     username: {
         type: String,
@@ -34,12 +39,16 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
+    highscore: [highscoreSchema]
 });
 userSchema.methods.setPassword = function (password) {
     this.password = bcrypt.hashSync(password, saltRounds);
 };
 userSchema.methods.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
+};
+userSchema.methods.addHighScore = function (highscore) {
+    this.highscore.push(highscore);
 };
 userSchema.methods.generateJwt = function () {
     const expiry = new Date();
