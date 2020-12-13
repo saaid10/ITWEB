@@ -49,7 +49,7 @@ export function HighscoreDisplay() {
                             <TableRow>
                                 <TableCell component="th" scope="row">{highscore.level}</TableCell>
                                 <TableCell>{highscore.score}</TableCell>
-                                <TableCell>{highscore.time}</TableCell>
+                                <TableCell>{highscore.time.toLocaleDateString() + " " + highscore.time.toLocaleTimeString()}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
