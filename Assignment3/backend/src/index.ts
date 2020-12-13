@@ -11,4 +11,15 @@ const httpServer = app.listen(port, () => {
 });
 const wsServer = new Server({server: httpServer});
 
+wsServer.on('connection',
+    websocket => {
+        websocket.send(JSON.stringify('Hello from the two-way WebSocket server'));
+        websocket.onmessage = (message) =>
+            console.log(`The server received: ${message.data.toString()}`);
+        websocket.onerror = (error) =>
+            console.log(`The server received: ${error.message}`);
+        websocket.onclose = (why) =>
+            console.log(`The server received: ${why.code} ${why.reason}`);
+    }
+);
 export {wsServer}

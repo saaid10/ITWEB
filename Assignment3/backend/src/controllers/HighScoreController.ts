@@ -1,6 +1,5 @@
 import { IHighscore, IUser, User } from "@models/user";
 import { IRequest } from "@shared/constants";
-import { time } from "console";
 import { endOfDay, startOfDay } from "date-fns";
 import { Response } from "express";
 import { StatusCodes } from "http-status-codes";
@@ -18,7 +17,8 @@ export default class HighScoreController {
 				user.addHighScore(req.body.highscore)
 
 				const saved = await user.save();
-				wsServer.clients.forEach(client => client.send(JSON.stringify(req.body.highscore)));
+				wsServer.clients.forEach(
+					(client) => client.send(JSON.stringify(req.body.highscore)));
 				res.status(OK).send(saved);
 			} catch (e) {
 				res.status(BAD_REQUEST)
