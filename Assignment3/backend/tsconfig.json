@@ -83,6 +83,9 @@
       ],
       "@models/*": [
         "src/models/*"
+      ],
+      "@index": [
+        "src/index"
       ]
     }
   },

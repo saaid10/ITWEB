@@ -19,13 +19,13 @@ export interface IUser extends Document {
 
 export interface IHighscore extends Document {
     score: number;
-    level: String,
+    level: number,
     time: Date
 }
 
 const highscoreSchema = new Schema ({
     score: Number,
-    level: String,
+    level: Number,
     time: Date
 });
 

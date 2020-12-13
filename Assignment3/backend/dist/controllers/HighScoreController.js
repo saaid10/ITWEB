@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = require("@models/user");
 const date_fns_1 = require("date-fns");
 const http_status_codes_1 = require("http-status-codes");
-const src_1 = require("src");
+const _index_1 = require("@index");
 const { OK, UNAUTHORIZED, BAD_REQUEST, CONFLICT } = http_status_codes_1.StatusCodes;
 class HighScoreController {
 }
@@ -26,7 +26,7 @@ HighScoreController.NewHighScore = (req, res) => __awaiter(void 0, void 0, void 
                 throw new Error('User not found');
             user.addHighScore(req.body.highscore);
             const saved = yield user.save();
-            src_1.wsServer.clients.forEach((client) => client.send(JSON.stringify(req.body.highscore)));
+            _index_1.wsServer.clients.forEach((client) => client.send(JSON.stringify(req.body.highscore)));
             res.status(OK).send(saved);
         }
         catch (e) {
