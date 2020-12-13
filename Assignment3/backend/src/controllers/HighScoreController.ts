@@ -39,7 +39,7 @@ export default class HighScoreController {
 					$match: {
 						$and: [{
 								'highscore.level': {
-									$eq: req.query.level
+									$eq: Number(req.query.level)
 								}
 							},
 							{
@@ -56,7 +56,7 @@ export default class HighScoreController {
 					$match: {
 						$and: [{
 								'highscore.level': {
-									$eq: req.query.level
+									$eq: Number(req.query.level)
 								}
 							},
 							{
