@@ -53,8 +53,8 @@ HighScoreController.GetHighScore = (req, res) => __awaiter(void 0, void 0, void 
                             },
                             {
                                 'highscore.time': {
-                                    $gte: date_fns_1.startOfDay(new Date()),
-                                    $lte: date_fns_1.endOfDay(new Date())
+                                    $gte: date_fns_1.startOfYesterday(),
+                                    $lte: date_fns_1.endOfToday()
                                 }
                             }
                         ]
@@ -70,8 +70,8 @@ HighScoreController.GetHighScore = (req, res) => __awaiter(void 0, void 0, void 
                             },
                             {
                                 'highscore.time': {
-                                    $gt: date_fns_1.startOfDay(new Date()),
-                                    $lt: date_fns_1.endOfDay(new Date())
+                                    $gt: date_fns_1.startOfYesterday(),
+                                    $lt: date_fns_1.endOfToday()
                                 }
                             }
                         ]

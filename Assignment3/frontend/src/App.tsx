@@ -9,6 +9,8 @@ import Register from './components/auth/Register'
 import Header from './components/layout/Header'
 import PrivateRoute from './components/auth/private-route';
 import { HighscoreDisplay } from "./components/highscore-display";
+import {GetHighSCoresOperation} from "./state/highscore/operations";
+import {useDispatch} from "react-redux";
 
 function App() {
   let HOST = window.location.origin.replace(/^http/, 'ws')
@@ -20,10 +22,11 @@ function App() {
       console.log('connected')
     }
 
-    ws.onmessage = evt => {
+    ws.onmessage = async evt => {
       // listen to data sent from the websocket server
-      const message = JSON.parse(evt.data)
-      console.log(message)
+      const message = JSON.parse(evt.data);
+      console.log(message);
+      (await GetHighSCoresOperation())(useDispatch());
     }
 
     ws.onclose = () => {
