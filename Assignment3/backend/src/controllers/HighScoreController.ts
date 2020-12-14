@@ -1,11 +1,11 @@
-import { IHighscore, IUser, User } from "@models/user";
+import { IHighscore, User } from "@models/user";
 import { IRequest } from "@shared/constants";
-import { endOfDay, startOfDay } from "date-fns";
+import {endOfToday, startOfYesterday} from "date-fns";
 import { Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { wsServer } from '@index';
 
-const {OK, UNAUTHORIZED, BAD_REQUEST, CONFLICT} = StatusCodes;
+const {OK, BAD_REQUEST} = StatusCodes;
 
 export default class HighScoreController {
 	static NewHighScore = async (req: IRequest, res: Response) => {
@@ -44,8 +44,8 @@ export default class HighScoreController {
 							},
 							{
 								'highscore.time': {
-									$gte: startOfDay(new Date()),
-									$lte: endOfDay(new Date())
+									$gte: startOfYesterday(),
+									$lte: endOfToday()
 								}
 							}
 						]
@@ -61,8 +61,8 @@ export default class HighScoreController {
 							},
 							{
 								'highscore.time': {
-									$gt: startOfDay(new Date()),
-									$lt: endOfDay(new Date())
+									$gt: startOfYesterday(),
+									$lt: endOfToday()
 								}
 							}
 						]
