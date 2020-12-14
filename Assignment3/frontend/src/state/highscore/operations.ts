@@ -24,14 +24,25 @@ export const GetHighSCoresOperation = async () => {
     }));
 }
 
-export const AddNewHighScoreOperation = async (highScore: highScore) => {
+export const AddNewHighScoreOperation = async () => {
+    const game = store.getState().gameSettingsReducer;
+    const highScore: highScore = {
+        score: (game.currentGameScore.correctSameLetter + game.currentGameScore.correctSameLocation) * game.gameSettings.nBack,
+        level: game.gameSettings.nBack,
+        time: new Date(),
+    };
+
+    const scoreToPost = {
+        highscore: highScore
+    }
+
     await fetch(`/api//highscore`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'bearer ' + window.localStorage.getItem(AccessToken),
         },
-        body: JSON.stringify(highScore),
+        body: JSON.stringify(scoreToPost),
     })
     return (dispatch: Dispatch) => dispatch(AddNewScoreAction({ highScore }));
 }

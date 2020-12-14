@@ -19,7 +19,6 @@ export const DualBackGrid = () => {
             const curr: GameRound = rounds[rounds.length - 1];
             const last: GameRound = rounds[rounds.length - (nBack + 1)];
 
-
             if (curr.Xpossition === last.Xpossition && curr.Ypossition === last.Ypossition)
                 return AddToCorrectLocationOperation(1)(dispatch);
         }

@@ -3,7 +3,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { secondsBetweenLetters } from '../constants';
 import { AddGameRoundOperation, ClearGameRoundsOperation } from '../state/game-round/operations';
+import { GameRound } from '../state/game-round/types';
 import { ClearScoreOperation, SetIsRunningOperation, SetNBackOperation } from '../state/game/operations';
+import { AddNewHighScoreOperation } from '../state/highscore/operations';
+import { highScore } from '../state/highscore/types';
 import { AppState } from '../state/store';
 import { getRoundsLeft } from '../utils/rounds';
 import { DualBackGrid } from './dual-back-grid';
@@ -11,8 +14,8 @@ import { DualBackGrid } from './dual-back-grid';
 
 export function DualNBack() {
     const dispatch = useDispatch();
-    useSelector((state: AppState) => state.gameRoundsReducer.rounds);   //Only here to update EffectHook
-    const isRunning = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.isRunning);
+    const rounds: GameRound[] = useSelector((state: AppState) => state.gameRoundsReducer.rounds);   //Only here to update EffectHook
+    const isRunning: boolean = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.isRunning);
     const nBack: number = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.nBack);
     const numberOfCorrectLocation: number = useSelector((state: AppState) => state.gameSettingsReducer.currentGameScore.correctSameLocation);
     const numberOfCorrectLetter: number = useSelector((state: AppState) => state.gameSettingsReducer.currentGameScore.correctSameLetter);
@@ -34,22 +37,25 @@ export function DualNBack() {
         ClearGameRoundsOperation()(dispatch);
     }
 
-    useEffect(() => {
-        if (getRoundsLeft() === 0) {
-            setTimeout(() => {
-                clearGame();
-            }, secondsBetweenLetters * 1000)
-        }
+    const postScore = async () => {
+        (await AddNewHighScoreOperation())(dispatch);
+    }
 
+    useEffect(() => {
         const interval = setInterval(() => {
+            if (getRoundsLeft() === 0) {
+                postScore();
+                clearGame();
+            }
             if (isRunning)
                 AddGameRoundOperation()(dispatch);
+
         }, secondsBetweenLetters * 1000);
 
         if (!isRunning)
             clearInterval(interval);
         return () => clearInterval(interval);
-    });
+    }, [rounds, isRunning]);
 
     return (
         <div className="center">

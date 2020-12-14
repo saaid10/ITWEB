@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import {TextField} from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 
 import { useDispatch } from 'react-redux';
-import { Route, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { SetIsLoggedInOperation } from '../../state/auth/operations';
 import './Login.scss';
 import Button from '@material-ui/core/Button';
@@ -17,7 +17,7 @@ function Login() {
 
     async function handleSubmit(event: any) {
         console.log(userName, userPassword);
-        
+
         // Something async
 
         /*
@@ -26,15 +26,15 @@ function Login() {
                         headers: {'Content-Type': 'application/json'}, 
                         body: JSON.stringify({username: userName, password: userPassword})});
         */
-        
+
         await fetch('/api/auth/login', {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify({username: userName, password: userPassword})})
-            .then(response=>response.json())
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: userName, password: userPassword })
+        })
+            .then(response => response.json())
             .then(data => data.token)
-            .then(token=> 
-            {
+            .then(token => {
                 localStorage.setItem(AccessToken, token)
                 SetIsLoggedInOperation(true)(dispatch);
                 history.push('/');
@@ -58,7 +58,7 @@ function Login() {
             <p className="input-box">Enter username and password:</p>
             <div className="input-box"><TextField color="primary" label="User Name" type='text' value={userName} onChange={(e) => setUserName(e.target.value)} /></div>
             <div className="input-box"><TextField label="Password" type='password' value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
-            <div className="login-button"><Button variant="contained" onClick={handleSubmit}>login</Button></div></div>
+                <div className="login-button"><Button variant="contained" onClick={handleSubmit}>login</Button></div></div>
         </div>
     )
 }

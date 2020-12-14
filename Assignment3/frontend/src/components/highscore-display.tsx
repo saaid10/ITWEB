@@ -40,7 +40,7 @@ export function HighscoreDisplay() {
                     </TableHead>
                     <TableBody>
                         {highscores.sort((a, b) => (a.score > b.score) ? -1 : 1).map((highscore) => (
-                            <TableRow>
+                            <TableRow key={"TableRowHighSCore: " + JSON.stringify(highscore)}>
                                 <TableCell className="item">{highscore.level}</TableCell>
                                 <TableCell className="item">{highscore.score}</TableCell>
                                 <TableCell className="item">{highscore.time.toLocaleDateString() + " " + highscore.time.toLocaleTimeString()}</TableCell>
