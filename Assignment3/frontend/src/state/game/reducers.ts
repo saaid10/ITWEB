@@ -3,7 +3,6 @@ import { Action } from "redux";
 import { isType } from 'typescript-fsa';
 import { Game } from "./types";
 
-
 export const initialGameSettings: Game = {
     gameSettings: {
         nBack: 1,
@@ -45,7 +44,7 @@ export function gameSettingsReducer(state: typeof initialGameSettings = initialG
     if (isType(action, actions.AddToSameLocationAction)) {
         return {
             ...state, currentGameScore: {
-                ...state.currentGameScore, correctSameLocation: state.currentGameScore.correctSameLocation += action.payload.amountToAdd
+                ...state.currentGameScore, correctSameLocation: state.currentGameScore.correctSameLocation + action.payload.amountToAdd
             }
         }
     }
