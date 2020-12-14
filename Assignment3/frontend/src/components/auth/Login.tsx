@@ -16,16 +16,6 @@ function Login() {
     const [userPassword, setUserPassword] = useState('');
 
     async function handleSubmit(event: any) {
-        console.log(userName, userPassword);
-
-        // Something async
-
-        /*
-        const response = await fetch('/api/auth/login', {
-                        method: 'POST', 
-                        headers: {'Content-Type': 'application/json'}, 
-                        body: JSON.stringify({username: userName, password: userPassword})});
-        */
 
         await fetch('/api/auth/login', {
             method: 'POST',
@@ -34,22 +24,13 @@ function Login() {
         })
             .then(response => response.json())
             .then(data => data.token)
-            .then(token => {
-                localStorage.setItem(AccessToken, token)
-                SetIsLoggedInOperation(true)(dispatch);
-                history.push('/');
+            .then((token: string) => {
+                if (token) {
+                    localStorage.setItem(AccessToken, token)
+                    SetIsLoggedInOperation(true)(dispatch);
+                    history.push('/');
+                }
             });
-
-        /*
-        console.log(response.status)
-
-        if (response.status === 200)
-        {
-            console.log('user auth - 200 ok');
-            SetIsLoggedInOperation(true)(dispatch);
-            history.push('/')
-        }
-        */
     }
 
     return (

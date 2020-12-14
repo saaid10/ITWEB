@@ -9,6 +9,8 @@ import Register from './components/auth/Register'
 import Header from './components/layout/Header'
 import PrivateRoute from './components/auth/private-route';
 import { HighscoreDisplay } from "./components/highscore-display";
+import { AddNewHighScoreOperation } from './state/highscore/operations';
+import { highScore } from './state/highscore/types';
 
 function App() {
   let HOST = window.location.origin.replace(/^http/, 'ws')
@@ -24,6 +26,10 @@ function App() {
       // listen to data sent from the websocket server
       const message = JSON.parse(evt.data)
       console.log(message)
+
+      const highscore: highScore = message as highScore;
+      if (highscore)
+        AddNewHighScoreOperation(highscore);
     }
 
     ws.onclose = () => {

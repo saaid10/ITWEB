@@ -24,7 +24,12 @@ export const GetHighSCoresOperation = async () => {
     }));
 }
 
-export const AddNewHighScoreOperation = async () => {
+export const AddNewHighScoreOperation = async (highScore: highScore) => {
+    return (dispatch: Dispatch) => dispatch(AddNewScoreAction({ highScore }));
+}
+
+
+export const AddNewHighScore = async () => {
     const game = store.getState().gameSettingsReducer;
     const highScore: highScore = {
         score: (game.currentGameScore.correctSameLetter + game.currentGameScore.correctSameLocation) * game.gameSettings.nBack,
@@ -44,5 +49,4 @@ export const AddNewHighScoreOperation = async () => {
         },
         body: JSON.stringify(scoreToPost),
     })
-    return (dispatch: Dispatch) => dispatch(AddNewScoreAction({ highScore }));
 }

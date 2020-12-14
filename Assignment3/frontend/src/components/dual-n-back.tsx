@@ -5,7 +5,7 @@ import { secondsBetweenLetters } from '../constants';
 import { AddGameRoundOperation, ClearGameRoundsOperation } from '../state/game-round/operations';
 import { GameRound } from '../state/game-round/types';
 import { ClearScoreOperation, SetIsRunningOperation, SetNBackOperation } from '../state/game/operations';
-import { AddNewHighScoreOperation } from '../state/highscore/operations';
+import { AddNewHighScore, AddNewHighScoreOperation } from '../state/highscore/operations';
 import { highScore } from '../state/highscore/types';
 import { AppState } from '../state/store';
 import { getRoundsLeft } from '../utils/rounds';
@@ -38,7 +38,7 @@ export function DualNBack() {
     }
 
     const postScore = async () => {
-        (await AddNewHighScoreOperation())(dispatch);
+        (await AddNewHighScore());
     }
 
     useEffect(() => {

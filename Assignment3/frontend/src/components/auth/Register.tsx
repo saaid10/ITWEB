@@ -1,7 +1,6 @@
-import React, {useState} from 'react'
-import {TextField} from '@material-ui/core'
+import React, { useState } from 'react'
+import { TextField } from '@material-ui/core'
 import { useDispatch } from 'react-redux';
-
 import { useHistory } from 'react-router-dom';
 import { SetIsLoggedInOperation } from '../../state/auth/operations';
 import './Login.scss';
@@ -17,21 +16,20 @@ function Register() {
     const [userConfirmPassword, setUserConfirmPassword] = useState('');
 
     async function handleSubmit(event: any) {
-        console.log(userName, userPassword);
-        
-        // Something async
 
         await fetch('/api/auth/registration', {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify({username: userName, password: userPassword, confirmPassword: userConfirmPassword})})
-            .then(response=>response.json())
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: userName, password: userPassword, confirmPassword: userConfirmPassword })
+        })
+            .then(response => response.json())
             .then(data => data.token)
-            .then(token=> 
-            {
-                localStorage.setItem(AccessToken, token)
-                SetIsLoggedInOperation(true)(dispatch);
-                history.push('/');
+            .then((token: string) => {
+                if (token) {
+                    localStorage.setItem(AccessToken, token)
+                    SetIsLoggedInOperation(true)(dispatch);
+                    history.push('/');
+                }
             });
     }
 
