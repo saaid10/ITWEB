@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { SetIsLoggedInOperation } from '../../state/auth/operations';
 import './Login.scss';
 import Button from '@material-ui/core/Button';
+import { AccessToken } from '../../constants';
 
 function Register() {
     const dispatch = useDispatch();
@@ -19,18 +20,19 @@ function Register() {
         console.log(userName, userPassword);
         
         // Something async
-        const response = await fetch('/api/auth/registration', {
+
+        await fetch('/api/auth/registration', {
             method: 'POST', 
             headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify({username: userName, password: userPassword, confirmPassword: userConfirmPassword})});
-
-
-        if (response.status === 200)
-        {
-            console.log('Registration auth - 200 ok');
-            SetIsLoggedInOperation(true)(dispatch);
-            history.push('/')
-        }
+            body: JSON.stringify({username: userName, password: userPassword, confirmPassword: userConfirmPassword})})
+            .then(response=>response.json())
+            .then(data => data.token)
+            .then(token=> 
+            {
+                localStorage.setItem(AccessToken, token)
+                SetIsLoggedInOperation(true)(dispatch);
+                history.push('/');
+            });
     }
 
     return (
