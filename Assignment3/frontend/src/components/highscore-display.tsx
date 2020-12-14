@@ -36,7 +36,7 @@ export function HighscoreDisplay() {
                             <TableCell className="item">Level</TableCell>
                             <TableCell className="item">Score</TableCell>
                             <TableCell className="item">Time</TableCell>
-                        </TableRow>0
+                        </TableRow>
                     </TableHead>
                     <TableBody>
                         {highscores.sort((a, b) => (a.score > b.score) ? -1 : 1).map((highscore) => (
