@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import './style/style.css';
 import "./App.scss";
