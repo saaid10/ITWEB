@@ -1,17 +1,17 @@
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppId } from "../constants";
 import { GameRound } from "../state/game-round/types";
 import { AddToCorrectLetterOperation, AddToCorrectLocationOperation } from "../state/game/operations";
 import { AppState } from "../state/store";
 import { DualBackGridItem } from "./dual-back-grid-item"
 import "./dual-back.scss";
 
-
 export const DualBackGrid = () => {
     const nBack: number = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.nBack);
     const isRunning: boolean = useSelector((state: AppState) => state.gameSettingsReducer.gameSettings.isRunning);
     const rounds: GameRound[] = useSelector((state: AppState) => state.gameRoundsReducer.rounds);
     const dispatch = useDispatch();
-
 
     const checkSameLocation = () => {
         if (!isRunning) return;
@@ -26,7 +26,7 @@ export const DualBackGrid = () => {
         return AddToCorrectLocationOperation(-1)(dispatch);
     }
 
-    const checkSameLetter = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const checkSameLetter = (e: React.MouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent) => {
         e.preventDefault();
         if (!isRunning) return;
         if (rounds.length > nBack) {
@@ -40,6 +40,24 @@ export const DualBackGrid = () => {
         return AddToCorrectLetterOperation(-1)(dispatch);
     }
 
+    useEffect(() => {
+        const keyDownEventListener = (event: KeyboardEvent) => {
+            //do something on keydown
+            if (event.key === 'a') {
+                checkSameLocation();
+            }
+            else if (event.key === 'l') {
+                checkSameLetter(event);
+            }
+        };
+
+        document.getElementById(AppId)?.addEventListener("keydown", keyDownEventListener);
+
+        return () => {
+            document.getElementById(AppId)?.removeEventListener("keydown", keyDownEventListener);
+        }
+    }, [isRunning]);
+
 
     const gridGenerator = (): JSX.Element[] => {
         let gridItems: JSX.Element[] = [];
@@ -52,7 +70,11 @@ export const DualBackGrid = () => {
     }
 
     return (
-        <div className="dual-back-grid-container" onClick={checkSameLocation} onContextMenu={checkSameLetter} >
+        <div
+            className="dual-back-grid-container"
+            onClick={checkSameLocation}
+            onContextMenu={checkSameLetter}
+        >
             {gridGenerator()}
         </div>
     )

@@ -10,6 +10,7 @@ import PrivateRoute from './components/auth/private-route';
 import { HighscoreDisplay } from "./components/highscore-display";
 import { AddNewHighScoreOperation } from './state/highscore/operations';
 import { highScore } from './state/highscore/types';
+import { AppId } from './constants';
 
 function App() {
   let HOST = window.location.origin.replace(/^http/, 'ws')
@@ -39,7 +40,7 @@ function App() {
   });
 
   return (
-    <div className="App">
+    <div className="App" id={AppId} tabIndex={-1}>
       <BrowserRouter>
         <Header />
         <Switch>
