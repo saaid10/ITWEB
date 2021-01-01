@@ -87,5 +87,5 @@ self.addEventListener('message', (event) => {
 setDefaultHandler(new StaleWhileRevalidate());
 
 self.addEventListener('offline', (event) => {
-    console.log(event, "HEJ");
+    console.log(event, "Offline");
 });

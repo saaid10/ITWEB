@@ -41,7 +41,7 @@ export const AddNewHighScore = async () => {
         highscore: highScore
     }
 
-    await fetch(`/api//highscore`, {
+    await fetch(`/api/highscore`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
