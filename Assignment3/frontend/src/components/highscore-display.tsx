@@ -16,7 +16,7 @@ import './highscore-display.scss';
 export function HighscoreDisplay() {
     const dispatch = useDispatch();
 
-    const highscores = useSelector((state: AppState) => state.highScoreReducer.highScores)
+    const highscores = useSelector((state: AppState) => state.highScoreReducer.highScores, (a, b) => true);
 
     const getHighScores = async () => {
         (await GetHighSCoresOperation())(dispatch);
