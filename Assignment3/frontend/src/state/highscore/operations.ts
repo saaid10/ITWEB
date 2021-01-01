@@ -25,7 +25,7 @@ export const GetHighSCoresOperation = async () => {
 }
 
 export const AddNewHighScoreOperation = async (highScore: highScore) => {
-    return (dispatch: Dispatch) => dispatch(AddNewScoreAction({ highScore }));
+    return (dispatch: Dispatch) => dispatch(AddNewScoreAction({ highScore:highScore }));
 }
 
 
