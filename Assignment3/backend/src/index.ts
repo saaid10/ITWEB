@@ -13,6 +13,7 @@ const wsServer: Server = new Server({server: httpServer});
 
 wsServer.on('connection',
     websocket => {
+        const interval = setInterval(function(){websocket.ping()}, 50e3);
         websocket.send(JSON.stringify('Hello from the two-way WebSocket server'));
         websocket.onmessage = (message) =>
             console.log(`The server received: ${message.data.toString()}`);

@@ -16,6 +16,7 @@ const httpServer = _server_1.default.listen(port, () => {
 const wsServer = new ws_1.Server({ server: httpServer });
 exports.wsServer = wsServer;
 wsServer.on('connection', websocket => {
+    const interval = setInterval(function () { websocket.ping(); }, 50e3);
     websocket.send(JSON.stringify('Hello from the two-way WebSocket server'));
     websocket.onmessage = (message) => console.log(`The server received: ${message.data.toString()}`);
     websocket.onerror = (error) => console.log(`The server received: ${error.message}`);

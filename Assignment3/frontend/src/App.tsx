@@ -17,6 +17,7 @@ function App() {
 
   const connect = () => {
     const ws = new WebSocket(process.env.REACT_APP_BACKEND_WS_URL || HOST);
+    let interval = setInterval(function(){ws.send("ping")}, 50e3);
     ws.onopen = () => {
       // on connecting, do nothing but log it to the console
       console.log('connected')
@@ -35,9 +36,7 @@ function App() {
     ws.onclose = () => {
       console.log('disconnected')
       // automatically try to reconnect on connection loss
-      setTimeout(function() {
-        connect();
-      }, 1000);
+      connect();
     }
   }
   useEffect(() => {
