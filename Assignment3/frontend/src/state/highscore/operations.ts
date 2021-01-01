@@ -7,7 +7,7 @@ import { highScore } from "./types";
 export const GetHighSCoresOperation = async () => {
     const nBack = store.getState().gameSettingsReducer.gameSettings.nBack;
 
-    const response = await fetch(`/api//highscore?level=${nBack}`, {
+    const response = await fetch(`/api/highscore?level=${nBack}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     }).then(response => response.json())
