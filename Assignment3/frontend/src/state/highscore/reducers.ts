@@ -2,7 +2,6 @@ import * as actions from "./actions";
 import { Action } from "redux";
 import { isType } from 'typescript-fsa';
 import { highScoreReducerContent } from "./types";
-import {AddNewScoreAction} from "./actions";
 
 
 export const initialHighScore: highScoreReducerContent = {
@@ -11,8 +10,7 @@ export const initialHighScore: highScoreReducerContent = {
 
 
 export function highScoreReducer(state: typeof initialHighScore = initialHighScore, action: Action): typeof initialHighScore {
-    if (isType(action, AddNewScoreAction)) {
-        console.log("highScoreReducer: AddNewScoreAction");
+    if (isType(action, actions.AddNewScoreAction)) {
         return {
             ...state, highScores: [...state.highScores, action.payload.highScore]
         }

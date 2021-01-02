@@ -15,7 +15,9 @@ import {useDispatch} from "react-redux";
 
 function App() {
   let HOST = window.location.origin.replace(/^http/, 'ws')
+  
   const dispatch = useDispatch();
+
   const connect = () => {
     const ws = new WebSocket(process.env.REACT_APP_BACKEND_WS_URL || HOST);
     let interval = setInterval(function(){ws.send("ping")}, 50e3);
@@ -27,17 +29,17 @@ function App() {
     ws.onmessage = evt => {
       // listen to data sent from the websocket server
       const message = JSON.parse(evt.data)
-      console.log("Message", message)
+      console.log("Message: ", message)
 
       if (message.level && message.time && message.score) {
         const highscore: highScore = {level: message.level, score: message.score, time: new Date(message.time)};
-        console.log("Highscore", highscore)
+        console.log("Highscore: ", highscore)
         AddNewHighScoreOperation(highscore)(dispatch);
       }
     }
 
     ws.onclose = () => {
-      console.log('disconnected')
+      console.log('Disconnected. Trying to reconnect...')
       // automatically try to reconnect on connection loss
       connect();
     }

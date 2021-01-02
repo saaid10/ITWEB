@@ -7,7 +7,7 @@ import {
     TableRow
 } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { GetHighSCoresOperation } from "../state/highscore/operations";
 import { AppState } from "../state/store";
 import './highscore-display.scss';
@@ -16,7 +16,7 @@ import './highscore-display.scss';
 export function HighscoreDisplay() {
     const dispatch = useDispatch();
 
-    const highscores = useSelector((state: AppState) => state.highScoreReducer.highScores, shallowEqual);
+    const highscores = useSelector((state: AppState) => state.highScoreReducer.highScores);
 
     const getHighScores = async () => {
         (await GetHighSCoresOperation())(dispatch);
