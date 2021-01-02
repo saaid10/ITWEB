@@ -11,6 +11,7 @@ export const initialHighScore: highScoreReducerContent = {
 
 export function highScoreReducer(state: typeof initialHighScore = initialHighScore, action: Action): typeof initialHighScore {
     if (isType(action, actions.AddNewScoreAction)) {
+        console.log("highScoreReducer: AddNewScoreAction");
         return {
             ...state, highScores: [...state.highScores, action.payload.highScore]
         }
