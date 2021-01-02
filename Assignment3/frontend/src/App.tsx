@@ -11,10 +11,11 @@ import { HighscoreDisplay } from "./components/highscore-display";
 import { AddNewHighScoreOperation } from './state/highscore/operations';
 import { highScore } from './state/highscore/types';
 import { AppId } from './constants';
+import {useDispatch} from "react-redux";
 
 function App() {
   let HOST = window.location.origin.replace(/^http/, 'ws')
-
+  const dispatch = useDispatch();
   const connect = () => {
     const ws = new WebSocket(process.env.REACT_APP_BACKEND_WS_URL || HOST);
     let interval = setInterval(function(){ws.send("ping")}, 50e3);
@@ -31,7 +32,7 @@ function App() {
       if (message.level && message.time && message.score) {
         const highscore: highScore = {level: message.level, score: message.score, time: new Date(message.time)};
         console.log("Highscore", highscore)
-        AddNewHighScoreOperation(highscore);
+        AddNewHighScoreOperation(highscore)(dispatch);
       }
     }
 
