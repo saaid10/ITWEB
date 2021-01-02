@@ -26,11 +26,11 @@ function App() {
     ws.onmessage = evt => {
       // listen to data sent from the websocket server
       const message = JSON.parse(evt.data)
-      console.log(message)
+      console.log("Message", message)
 
-      const highscore: highScore = message as highScore;
+      const highscore: highScore = {level: message.level, score: message.score, time: new Date(message.time)};
       if (highscore)
-        console.log("hello", highscore)
+        console.log("Highscore", highscore)
         AddNewHighScoreOperation(highscore);
     }
 
