@@ -30,6 +30,7 @@ function App() {
 
       const highscore: highScore = message as highScore;
       if (highscore)
+        console.log("hello", highscore)
         AddNewHighScoreOperation(highscore);
     }
 
