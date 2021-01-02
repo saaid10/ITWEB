@@ -28,10 +28,11 @@ function App() {
       const message = JSON.parse(evt.data)
       console.log("Message", message)
 
-      const highscore: highScore = {level: message.level, score: message.score, time: new Date(message.time)};
-      if (highscore)
+      if (message.level && message.time && message.score) {
+        const highscore: highScore = {level: message.level, score: message.score, time: new Date(message.time)};
         console.log("Highscore", highscore)
         AddNewHighScoreOperation(highscore);
+      }
     }
 
     ws.onclose = () => {
