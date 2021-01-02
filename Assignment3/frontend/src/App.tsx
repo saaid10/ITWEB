@@ -15,7 +15,7 @@ import {useDispatch} from "react-redux";
 
 function App() {
   let HOST = window.location.origin.replace(/^http/, 'ws')
-  
+
   const dispatch = useDispatch();
 
   const connect = () => {
