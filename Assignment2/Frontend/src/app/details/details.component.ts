@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import WorkoutProgram from '../shared/models/WorkoutProgram';
@@ -9,6 +9,7 @@ import WorkoutProgram from '../shared/models/WorkoutProgram';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
+
   private programId: string | null = '';
   public program: WorkoutProgram | undefined;
 
