@@ -89,7 +89,7 @@ userSchema.methods.generateJwt = function (): string {
         id: this._id,
         username: this.username,
         exp: parseInt(String(expiry.getTime() / 1000)), // as Unix time in seconds
-    }, process.env.JWT_SECRET as string); // DO NOT KEEP YOUR SECRET IN THE CODE!
+    }, process.env.JWT_SECRET as string, {algorithm: "HS256"}); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };
 
 // export default mongoose.model<IUser>('User', userSchema);
