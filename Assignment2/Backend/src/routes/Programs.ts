@@ -17,5 +17,3 @@ router
     .delete(auth, programsController.deleteProgram)
 
 export default router;
-
-

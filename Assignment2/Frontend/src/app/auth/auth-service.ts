@@ -4,9 +4,9 @@ import {Router} from '@angular/router';
 
 
 export interface User {
-    username: string,
-    password: string,
-    confirmPassword?: string
+    username: string;
+    password: string;
+    confirmPassword?: string;
 }
 
 
@@ -19,8 +19,8 @@ export class AuthenticationService {
     constructor(private http: HttpClient,
                 private router: Router) { }
 
-    apiBaseUrl = "/api/";
-    redirectUrl: string = "";
+    apiBaseUrl = '/api/';
+    redirectUrl = '';
 
 
 
@@ -33,17 +33,17 @@ export class AuthenticationService {
     }
 
 
-    httpOptions = {
-        headers: new HttpHeaders({
+    get httpOptions(): HttpHeaders {
+        return new HttpHeaders({
             'Access-Control-Allow-Origin': '*',
         }).set('Authorization', 'Bearer ' +
-            this.getToken()),
+            this.getToken());
     }
 
 
     SignIn = (user: User) => {
         const url = `${this.apiBaseUrl}auth/login`;
-        this.http.post<AuthToken>(url, user, this.httpOptions).subscribe(data => {
+        this.http.post<AuthToken>(url, user, {headers: this.httpOptions}).subscribe(data => {
             this.saveToken(data.token);
             this.router.navigateByUrl('');
             return true;
@@ -62,9 +62,9 @@ export class AuthenticationService {
             });
     }
 
-    public register(user: User) {
+    public register(user: User): void {
         const url = `${this.apiBaseUrl}auth/registration`;
-        this.http.post<AuthToken>(url, user, this.httpOptions).subscribe(data => {
+        this.http.post<AuthToken>(url, user, {headers: this.httpOptions}).subscribe(data => {
             this.saveToken(data.token);
             return true;
         },
@@ -83,7 +83,7 @@ export class AuthenticationService {
     }
 
     SignOut = () => {
-        window.localStorage.removeItem("loc8r-token");
+        window.localStorage.removeItem('loc8r-token');
         window.location.reload();
     }
 

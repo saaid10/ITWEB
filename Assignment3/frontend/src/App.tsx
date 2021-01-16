@@ -13,7 +13,7 @@ import { highScore } from './state/highscore/types';
 import { AppId } from './constants';
 import {useDispatch} from "react-redux";
 
-function App() {
+export default function App() {
   let HOST = window.location.origin.replace(/^http/, 'ws')
 
   const dispatch = useDispatch();
@@ -62,5 +62,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

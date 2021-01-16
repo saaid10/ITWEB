@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import { NgMaterialIconModule } from "ng-material-icon";
+import { NgMaterialIconModule } from 'ng-material-icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AddprogramComponent } from './addprogram/addprogram.component';
