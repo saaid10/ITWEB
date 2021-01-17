@@ -2,7 +2,7 @@
  * Remove old files, copy front-end ones.
  */
 
-import fs from 'fs-extra';
+import fs from 'fs-extra'
 import Logger from 'jet-logger';
 
 

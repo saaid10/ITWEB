@@ -6,12 +6,12 @@ const router: Router = Router();
 
 
 router
-    .route('/')
+    .route('/') // api/programs
     .get(authCredentialsNotRequired, programsController.getPrograms)
     .post(auth, programsController.addNewProgram)
 
 router
-    .route('/:programId')
+    .route('/:programId') // api/programs/69
     .get(authCredentialsNotRequired, programsController.getProgram)
     .put(auth, programsController.updateProgram)
     .delete(auth, programsController.deleteProgram)

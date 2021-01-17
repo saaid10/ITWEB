@@ -74,7 +74,7 @@ body {
 
 @media screen and (max-width: 550px) {
     #header .title {
-        font-size: 1.2er;
+        font-size: 1.2rem;
     }
 
     #header .auth-options button {
