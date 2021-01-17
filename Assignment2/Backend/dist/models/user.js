@@ -72,7 +72,7 @@ userSchema.methods.generateJwt = function () {
         id: this._id,
         username: this.username,
         exp: parseInt(String(expiry.getTime() / 1000)),
-    }, process.env.JWT_SECRET); // DO NOT KEEP YOUR SECRET IN THE CODE!
+    }, process.env.JWT_SECRET, { algorithm: "HS256" }); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };
 // export default mongoose.model<IUser>('User', userSchema);
 const Workout = mongoose_1.default.model('workout', workoutSchema);

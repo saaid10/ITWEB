@@ -8,11 +8,11 @@ const programsController_1 = __importDefault(require("@controllers/programsContr
 const functions_1 = require("@shared/functions");
 const router = express_1.Router();
 router
-    .route('/')
+    .route('/') // api/programs
     .get(functions_1.authCredentialsNotRequired, programsController_1.default.getPrograms)
     .post(functions_1.auth, programsController_1.default.addNewProgram);
 router
-    .route('/:programId')
+    .route('/:programId') // api/programs/69
     .get(functions_1.authCredentialsNotRequired, programsController_1.default.getProgram)
     .put(functions_1.auth, programsController_1.default.updateProgram)
     .delete(functions_1.auth, programsController_1.default.deleteProgram);
